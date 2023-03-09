@@ -1,0 +1,5 @@
+import 'next'
+
+const RequireAuth = () => {
+
+}
