@@ -18,7 +18,8 @@ export default function Login ({toggler}: any) : ReactElement {
 
     return (
         <motion.section 
-            exit={{ opacity: 0 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
             className={styles.Form}
         >
             <p>Login to start planning</p>

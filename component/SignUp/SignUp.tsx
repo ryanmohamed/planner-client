@@ -17,7 +17,12 @@ export default function SignUp ({toggler}: any) : ReactElement {
     const [ error, setError ] = useState(null)
 
     return (
-        <section className={styles.Form}>
+        <motion.section 
+            animate={{ scale: 1 }}
+            exit={{ scale: 0 }}
+            className={styles.Form}
+        >
+            
             <p>Make an account</p>
             <hr />
             <Formik 
@@ -47,6 +52,6 @@ export default function SignUp ({toggler}: any) : ReactElement {
             </Formik>
             <motion.button whileTap={{ scale: 1.2 }} whileHover={{ scale: 1.05 }} className={styles.Google} type='button' onClick={()=>{LoginWithGoogle(setError)}}>Sign in with Google</motion.button>
             <motion.button whileTap={{ scale: 1.2 }} whileHover={{ scale: 1.05 }} className={styles.Anon} type='button' onClick={()=>{LoginAnonymously(setError)}}>Sign in anonymously</motion.button>
-        </section>
+        </motion.section>
     )
 }

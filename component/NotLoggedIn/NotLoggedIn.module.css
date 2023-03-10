@@ -1,0 +1,17 @@
+.Main {
+    min-height: calc(100vh - var(--navheight));
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.Main > h1 {
+    font-family: var(--main-font);
+}
+.Main > p {
+    font-family: var(--alternate-font);
+}

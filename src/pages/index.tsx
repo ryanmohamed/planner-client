@@ -64,15 +64,18 @@ export default function Home() {
 
       <motion.div layout className="mid">
 
-        <section style={{ gridColumn: user ? '1/3' : '1/2' }}>
+        <section>
           <Link href="/dashboard">Click me</Link>
         </section>
 
+        <MotionConfig transition={{ duration: 5 }}>
         { user === null && <section>
-            <AnimatePresence mode='wait'>
-          { toggle ? <SignUp toggler={()=>setToggle(false)}/> : <Login toggler={()=>setToggle(true)} /> }
+          <AnimatePresence mode='wait'>
+            { toggle ? <SignUp toggler={()=>setToggle(false)}/> : <Login toggler={()=>setToggle(true)} /> }
           </AnimatePresence>
         </section> }
+        </MotionConfig>
+
 
       </motion.div>
 
