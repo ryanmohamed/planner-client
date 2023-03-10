@@ -1,5 +1,0 @@
-import 'next'
-
-const RequireAuth = () => {
-
-}

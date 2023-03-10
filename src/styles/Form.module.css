@@ -1,0 +1,132 @@
+.Form {
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    height: 100%;
+    width: 80%;
+    padding: 25px;
+    transition: 200ms;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.441);
+}
+
+.Form * {
+    display: block;
+    /* font-size: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    margin: 10px 0;
+}
+
+.Form > p {
+    color: #212529;
+    font-family: var(--main-font);
+    font-size: 30px;
+    margin: 0px 0 0px;
+    padding: 0 0 5px;
+    text-align: center;
+    padding: 50px 40px;
+}
+
+.Form > form > input {
+    width: 100%;
+    height: 50px;
+    /* border-radius: 0.5rem; */
+    padding: 10px;
+    /* border-bottom: 1px solid #212529; */
+    color: #212529;
+    transition: 200ms;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none;
+    border-bottom: 1px solid #ced4da;
+    appearance: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.Form > form > input {
+    margin-top: 20px;
+}
+
+.Form > form > input:focus,
+.Form > form > input:hover,
+.Form > form > input:-webkit-autofill:focus,
+.Form > form > input:-webkit-autofill:active,
+.Form > form > input:-webkit-autofill:hover
+{
+    color: black;
+    background-color: #fff !important;
+    border-color: #0044ff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(134, 254, 192 / 25%);
+}
+.Form > form > input:-webkit-autofill,
+.Form > form > input:-webkit-autofill:focus,
+.Form > form > input:-webkit-autofill:active,
+.Form > form > input:-webkit-autofill:hover {
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+.Form > form > * {
+    font-size: 20px;
+}
+.Form > form > span, 
+.Form > form > p{
+    color: #212529;
+    font-size: 16px;
+    font-family: var(--alternate-font2);
+    text-align: right;
+    margin: 0 0 20px;
+    width: 100%;
+}
+
+
+
+.Form button {
+    width: 100%;
+    min-height: 50px;
+    background-color: rgb(25, 25, 25);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.273);
+    border: none;
+    cursor: pointer;
+    padding: 10px 50px;
+    font-family: var(--alternate-font2);
+    font-size: 100%;
+    color: var(--main-bg);
+    transition: 200ms;
+}
+.Form > form > button {
+    margin-top: 20px;
+}
+.Google {
+    background-image: url('/svgs/google.svg'), none;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.Anon {
+    background-image: url('/svgs/anonymous.svg'), none;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+
+.Form > form > div {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.Form > form > div > span {
+    font-size: 15px;
+    font-family: var(--alternate-font2);
+    cursor: pointer;
+    justify-content: center;
+    width: fit-content;
+    color: #0044ff;
+    text-decoration: underline;
+    margin: 0;
+    text-align: center;
+}

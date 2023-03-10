@@ -1,0 +1,92 @@
+.Navbar {
+    width: 100vw;
+    height: var(--navheight);
+    background-color: rgb(1, 138, 53);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Navbar > a {
+    text-decoration: none;
+}
+.Navbar > a > .Title {
+    color: white;
+    font-family: var(--main-font);
+    font-size: 24px;
+    margin-left: 25px;
+}
+
+/* user info */
+.Navbar > div {
+    height: 100%;
+    width: fit-content;
+    padding: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.Navbar > div > .Name {
+    font-size: 14px;
+    text-align: center;
+    font-family: var(--main-font);
+    margin: 0 20px;
+}
+.Navbar > div > img {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
+.Dropdown {
+    background-color: rgb(38, 38, 38);
+    list-style-type: none;
+    border-bottom-left-radius: 1.25rem;
+
+    height: auto;
+    width: 100%;
+    position: absolute;
+    top: var(--navheight);
+    left: 0;
+
+    box-shadow: 0 2px 10px #00000063;
+}
+.Dropdown > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.Dropdown > div > div {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.Dropdown  > div > div > li {
+    color: white;
+    font-family: var(--alternate-font);
+    cursor: pointer;
+    width: min-content;
+    padding: 3px;
+    border-bottom: 1px solid white;
+    margin: 0 0 20px;
+    text-align: center;;
+}
+.Dropdown  > div > div > li:first-child {
+    margin-top: 10px;
+}
+.Dropdown  > div > div > li:last-child {
+    margin-bottom: 20px;
+}
+
+
+.Navbar * {
+    color: white;
+}

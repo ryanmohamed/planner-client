@@ -1,6 +1,7 @@
 import { createContext, FC, useEffect, useState } from "react"
 import useFirebaseAppContext from "../hooks/useFirebaseAppContext"
 import { User, getAuth, onAuthStateChanged } from "firebase/auth"
+import { useRouter } from 'next/router'
 
 type UserType = User | null
 type ContextState = { 
@@ -10,6 +11,7 @@ const FirebaseUserContext = createContext<ContextState | undefined>(undefined)
 
 const FirebaseUserProvider = ({children}: any) => {
     const { app } = useFirebaseAppContext()
+    const router = useRouter()
 
     const [ user, setUser ] = useState<UserType>(null)
     const val: any = { user, setUser } // verify types later
