@@ -1,0 +1,14 @@
+.Dashboard {
+
+}
+.Dashboard > div {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px max(10vw, 50px);
+}
+.Dashboard > div > p {
+    
+}
+

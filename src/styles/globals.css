@@ -9,6 +9,7 @@
   --main-font: 'Manrope', sans-serif;
   --large-font-sz: 60px;
   --medium-font-sz: 30px;
+  --side-panel-width: max(15vw, 125px);
 }
 
 * {
@@ -24,6 +25,16 @@ body {
   min-height: 100vh;
 }
 
+.heading {
+  font-family: var(--main-font);
+  font-size: var(--large-font-sz);
+  margin-bottom: 10px;
+}
+.subheading {
+  font-family: var(--alternate-font);
+  font-size: 22px;
+}
+
 .landing {
   width: 100vw;
   display: flex;
@@ -32,6 +43,11 @@ body {
   align-items: center;
   padding: 100px;
   color: var(--main-txt);
+  background-image: url('/svgs/blobs.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 -2px 10px inset rgb(0, 0, 0, 0.2);
+  margin-bottom: 50px;
 }
 .landing h1 {
   font-size: var(--large-font-sz);
@@ -81,7 +97,7 @@ body {
   min-height: 60vh;
 }
 .mid > section:first-child {
-  background-color: red;
+  /* background-color: red; */
 }
 
 .mid > section:nth-child(2) {
@@ -95,5 +111,8 @@ body {
   .mid {
     display: flex;
     flex-direction: column;
+  }
+  .mid > section {
+    min-height: 20vh;
   }
 }

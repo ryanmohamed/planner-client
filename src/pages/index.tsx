@@ -12,15 +12,16 @@ import Login from '../../component/Login/Login'
 
 import { motion, MotionConfig, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import DashboardPanel from '../../component/Home/DashboardPanel/DashboardPanel'
 
 const marqueeVariants = {
   animate: {
-    x: [200, -600],
+    x: [200, -800],
     transition: {
       x: {
         repeat: Infinity,
         repeatType: "loop",
-        duration: 10,
+        duration: 15,
         ease: "linear",
       }
     },
@@ -44,29 +45,27 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Planner</title>
+        <title>Quizcraft</title>
         <meta name="description" content="Intuitive planner." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <header className="landing">
-        <h1>Welcome to your newest planner.</h1>
+        <h1>Welcome to your newest proctor.</h1>
         <blockquote>
           <motion.div 
             variants={marqueeVariants} 
             animate="animate"         
           >
-            <p><span>Track tasks on a timely basis.</span> <span>Upload files for organization.</span> <span>Take control.</span></p>
+            <p><span>Take quizzes or create your own.</span> <span>Attach files, images and customize.</span> <span>Post and join the community.</span></p>
           </motion.div>
         </blockquote>
       </header>
 
       <motion.div layout className="mid">
 
-        <section>
-          <Link href="/dashboard">Click me</Link>
-        </section>
+        <DashboardPanel />
 
         <MotionConfig transition={{ duration: 5 }}>
         { user === null && <section>

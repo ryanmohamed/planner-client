@@ -1,0 +1,13 @@
+.Create {
+    background-color: red;
+}
+.Create > form {
+    background-color: blue;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.Create > form > input {
+    width: 300px;
+}
