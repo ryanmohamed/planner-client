@@ -1,14 +1,13 @@
 .SidePanel {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
-    height: 100vh;
-    width: var(--side-panel-width);
-    padding-top: var(--navheight);
+    width: 100vw;
+    height: var(--side-panel-width) !important;
     background-color: rgb(0, 0, 0);
 
     display: grid;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     z-index: 50 !important;
 }
 
@@ -22,10 +21,10 @@
     user-select: none;
 }
 .SidePanel > a {
-    font-size: 40px;
+    font-size: 20px;
     text-decoration: none;
     text-shadow: 0 2px 70px rgb(255, 255, 255);
 }
 .SidePanel > a:hover {
-    font-size: 50px;
+    font-size: 30px;
 }
