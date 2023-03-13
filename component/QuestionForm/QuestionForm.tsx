@@ -1,11 +1,13 @@
 import { Formik, Field, ErrorMessage, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import DynamicQuestionForms from './DynamicQuestionForms'
+import onQuestionFormSubmit from '../../lib/onQuestionFormSubmit'
 import { motion } from 'framer-motion'
 import styles from './DynamicQuestionForms.module.css'
 export default function QuestionForm () {
     return (
         <Formik 
+            
             initialValues={{ title: '', subject: '', 
                 questions: [{ 
                     question: '',
@@ -43,10 +45,10 @@ export default function QuestionForm () {
                     })
                 ).min(1, "Must have atleast one question.")
             }) }
-            onSubmit={ (val) => { console.log(val) } }
+            onSubmit={onQuestionFormSubmit}
         >
             { props => (
-                <form onSubmit={props.handleSubmit}>
+                <form onSubmit={(e) => {props.handleSubmit(e)}}>
                     <div className={styles.Title}>
                         <input
                             name='title' 

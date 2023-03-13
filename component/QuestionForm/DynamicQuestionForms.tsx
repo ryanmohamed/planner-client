@@ -84,28 +84,17 @@ export default function DynamicQuestionForms({values, ...props}: any) {
                                     
 
                                     <div className={styles.Buttons}>
-                                        <motion.button 
-                                            onClick={() => {
-                                                if(question.question !== '' && question.type !== 'none' && question.type !== ''){
-                                                    if(question.type === 'mc'){
-                                                        if(question.choices.a !== '' && question.choices.b !== '' && question.choices.c !== '' && question.choices.d !== '' && question.answer !== 'none' && question.answer !== '')
-                                                            question.confirmed = !question.confirmed
-                                                    }
-                                                    else if(question.type === 't/f'){
-                                                        if(question.answer == 'true' || question.answer === 'false'){
-                                                            question.confirmed = !question.confirmed
-                                                        }
-                                                    }
-                                                    else if (question.answer !== '')
-                                                        question.confirmed = !question.confirmed
-                                                    
-                                                }
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                let cpy = question
+                                                cpy.confirmed = !question.confirmed
+                                                arrayHelpers.replace(index, cpy) // use array helpers to cause update to form values and therefore rerender
+                                                
                                             } }
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 1.1 }}
                                         >
                                             <Image src={ question.confirmed ? edit : confirm } alt="confirm or edit" height={25} width={25}/>
-                                        </motion.button>
+                                        </button>
 
                                         { index !== 0 && <motion.button 
                                             whileHover={{ scale: 1.05 }}
