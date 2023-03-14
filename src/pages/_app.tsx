@@ -6,6 +6,7 @@ import { FirebaseUserProvider } from '../../context/FirebaseUserProvider'
 import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
+import { FirebaseFirestoreProvider } from '../../context/FirebaseFirestoreProvider'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -21,7 +22,9 @@ const App = ({Component, pageProps}: AppPropsWithLayout) => {
     <FirebaseAppProvider>
       <FirebaseUserProvider>
         <Navbar />
-          { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+        <FirebaseFirestoreProvider>
+        { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
+        </FirebaseFirestoreProvider>
       </FirebaseUserProvider>
     </FirebaseAppProvider>
   </>

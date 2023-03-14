@@ -6,8 +6,11 @@ import type { NextPageWithLayout } from '../_app'
 
 import styles from './Dashboard.module.css'
 
+import useFirebaseFirestore from '../../../hooks/useFirebaseFirestore'
+
 const Dashboard: NextPageWithLayout = () => {
     const { user } = useFirebaseUserContext()
+
     return (<main className={styles.Dashboard}>
         <div>
             <h1 className="heading">Welcome {!user.isAnonymous && 'back'} {user?.displayName?.split(' ')[0] || user?.email || 'Anonymous' } 😁</h1>

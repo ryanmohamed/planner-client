@@ -1,0 +1,18 @@
+.Community {
+    /* background-color: var(--jazz-palette-4); */
+}
+.Community > div:first-child {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px max(10vw, 50px);
+}
+
+.QuizContainer {
+    /* background-color: red; */
+    margin: 100px 50px 0;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}

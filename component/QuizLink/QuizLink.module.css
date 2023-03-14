@@ -1,0 +1,51 @@
+.QuizLink {
+    min-width: 200px;
+    width: fit-content;
+    height: fit-content;
+
+    background: linear-gradient(33deg, var(--jazz-palette-5), var(--jazz-palette-6));
+    border: 4px solid var(--jazz-palette-7);
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+
+    padding: 30px;
+    margin: 10px;
+}
+
+.QuizLink > a {
+    font-family: var(--display-font);
+    font-size: 30px;
+    color: var(--jazz-palette-1);
+    text-decoration: none;
+    transition: 200ms;
+}
+.QuizLink > a:hover {
+    cursor: pointer;
+    color: var(--jazz-palette-2);
+}
+
+.QuizLink > h2 {
+    font-family: var(--display-font);
+    font-size: 25px;
+    color: var(--jazz-palette-7);
+    margin-bottom: 50px;
+}
+
+.QuizLink > p {
+    align-self: flex-end;
+    font-family: var(--alternate-font3);
+    font-size: 25px;
+    color: var(--jazz-palette-7);
+    filter: brightness(1.5);
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.QuizLink > div {
+    align-self: flex-end;
+    font-family: var(--alternate-font3);
+    font-size: 30px;
+    color: var(--jazz-palette-1);
+    display: flex;
+}

@@ -4,7 +4,21 @@ import DynamicQuestionForms from './DynamicQuestionForms'
 import onQuestionFormSubmit from '../../lib/onQuestionFormSubmit'
 import { motion } from 'framer-motion'
 import styles from './DynamicQuestionForms.module.css'
+
+import useFirebaseUserContext from "../../hooks/useFirebaseUserContext"
+
+import useFirebaseFirestore from '../../hooks/useFirebaseFirestore'
+
 export default function QuestionForm () {
+    const { user } = useFirebaseUserContext()
+    const { createQuiz } = useFirebaseFirestore()
+
+
+    const onSubmit = async (values: any, { resetForm }: any) => {
+        resetForm()
+        await createQuiz(values, user)
+    }
+
     return (
         <Formik 
             
@@ -45,7 +59,8 @@ export default function QuestionForm () {
                     })
                 ).min(1, "Must have atleast one question.")
             }) }
-            onSubmit={onQuestionFormSubmit}
+            onSubmit={onSubmit}
+            onReset={()=>{}}
         >
             { props => (
                 <form onSubmit={(e) => {props.handleSubmit(e)}}>
