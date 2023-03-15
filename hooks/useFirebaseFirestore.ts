@@ -1,5 +1,5 @@
 import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
-import { query, addDoc, collection, doc, orderBy, setDoc, Timestamp, onSnapshot, DocumentSnapshot, QuerySnapshot } from "firebase/firestore"
+import { getDoc, query, addDoc, collection, doc, orderBy, setDoc, Timestamp, onSnapshot, DocumentSnapshot, QuerySnapshot, limit } from "firebase/firestore"
 import { useEffect, useState } from "react"
 
 // CRUD operations
@@ -12,7 +12,13 @@ const useFirebaseFirestore = () => {
     useEffect((): any => {
         const unsubscribe = streamQuizzes(quizNum, 
             (querySnapshot: QuerySnapshot) => {
-                const updatedQuizzes = querySnapshot.docs.map((docSnapshot: DocumentSnapshot) => docSnapshot.data())
+                console.log(querySnapshot)
+                const updatedQuizzes = querySnapshot.docs.map((docSnapshot: DocumentSnapshot) => {
+                    return {
+                        id: docSnapshot.id,
+                        data: docSnapshot.data()
+                    }
+                })
                 console.log(updatedQuizzes)
                 setQuizzes(updatedQuizzes)
             },
@@ -44,23 +50,30 @@ const useFirebaseFirestore = () => {
         }
         console.log(payload)
         const quizzes_colref = collection(db, "Quizzes")
+        
         await addDoc(quizzes_colref, payload)
         .then( val => console.log(val) )
         .catch( err => console.log("error", err))
     }
 
     // READ
-    const streamQuizzes = async (n: Number, snapshot: any, error: any) => {
+    const streamQuizzes = async (n: number = 1, snapshot: any, error: any) => {
         const quizzes_colref = collection(db, "Quizzes")
-        const latest_query = query(quizzes_colref, orderBy('timestamp', 'desc'))
+        const latest_query = query(quizzes_colref, orderBy('timestamp', 'desc'), limit(n || 1))
         return onSnapshot(latest_query, snapshot, error)
     }
 
-    const getLatest = (n: Number) => {
+    const getLatest = (n: number = 1) => {
         setQuizNum(n)
     }
 
-    return { createQuiz, getLatest, quizzes }
+    // GET QUESTION
+    const getQuiz = async (id: any) => {
+        const question = await getDoc(doc(db, `/Quizzes/${id}`))
+        return question
+    }
+
+    return { createQuiz, getLatest, quizzes, getQuiz }
 }
 
 export default useFirebaseFirestore

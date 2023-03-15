@@ -1,11 +1,19 @@
 import Link from 'next/link'
 import styles from './QuizLink.module.css'
+import { motion } from 'framer-motion'
+import ignoreCircularReferences from '../../lib/ignoreCircularReferences'
 
-export default function QuizLink ({question}: any) {
+export default function QuizLink ({key, id, question}: any) {
     return (
-        <div className={styles.QuizLink}>
+        <motion.div 
+            key={JSON.stringify(question, ignoreCircularReferences())}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{opacity: 0, scale: 0 }}
+            className={styles.QuizLink}
+        >
 
-            <Link href="#">
+            <Link href={`/dashboard/community/${id}`}>
                 <h1>{question.title}</h1>
             </Link>
 
@@ -13,6 +21,6 @@ export default function QuizLink ({question}: any) {
             <p>{question.questions.length} questions</p>
             <div>Posted by ... </div>
 
-        </div>
+        </motion.div>
     )
 }

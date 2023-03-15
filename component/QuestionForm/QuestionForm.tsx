@@ -17,6 +17,7 @@ export default function QuestionForm () {
     const onSubmit = async (values: any, { resetForm }: any) => {
         resetForm()
         await createQuiz(values, user)
+        console.log(values)
     }
 
     return (
