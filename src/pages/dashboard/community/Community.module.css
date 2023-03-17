@@ -1,5 +1,9 @@
 .Community {
-    background-color: var(--blue-palette-1);
+    background-color: var(--jazz-palette-7);
+    background-image: url('/svgs/waves6.svg');
+    background-position: top 400px right 0px;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding-bottom: 10vh;
 }
 .Community > header {
@@ -20,7 +24,7 @@
     justify-content: flex-end;
     align-items: center;
     text-align: center;
-    padding: 50px 50px 200px;
+    padding: 50px 50px 100px;
 
     position: relative;
 }
@@ -88,27 +92,31 @@
 }
 
 .Landing {
-    margin-top: 50px;
-    text-align: right;
-    padding: 0 50px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 .Landing > h1 {
-    font-family: var(--main-font3);
-    font-size: 60px;
-    color: var(--jazz-palette-6);
+    font-family: var(--main-font4);
+    font-size: 35px;
+    color: var(--blue-palette-1);
+    text-shadow: 0 2px 50px var(--blue-palette-10);
 }
 .Landing > p {
     font-family: var(--alternate-font);
-    font-size: 25px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: var(--jazz-palette-7);
+    color: var(--blue-palette-1);
 }
 .Landing > p > select {
-    height: 50px;
+    height: 25px;
     width: 50px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     border-radius: 0.5rem;
     margin: 20px 0 20px 20px;
@@ -117,9 +125,13 @@
 
 .QuizContainer {
     /* background-color: red; */
-    margin: 100px 50px 0;
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-    
+    margin: 10px;
+}
+.QuizContainer {
+    margin: 70px 50px 0;
+    height: min-content;
 }

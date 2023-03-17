@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { ReactElement, useEffect } from "react"
 import DashboardLayout from "../../../../layout/DashboardLayout/DashboardLayout"
 import useFirebaseFirestore from "../../../../hooks/useFirebaseFirestore"
 import QuizLink from "../../../../component/QuizLink/QuizLink"
@@ -6,10 +6,17 @@ import styles from './Community.module.css'
 import { motion, AnimatePresence, Reorder, useDragControls, MotionConfig } from "framer-motion"
 
 import Image from 'next/link'
+import useMeasure from "react-use-measure"
+import ignoreCircularReferences from "../../../../lib/ignoreCircularReferences"
 
 const Community = () => {
     const { getLatest, quizzes } = useFirebaseFirestore()
     const controls = useDragControls()
+    const [ ref, { height } ] = useMeasure()
+
+    useEffect(() => {
+        getLatest(5)
+    }, [])
 
     return (<main className={styles.Community}>
         <header>
@@ -23,7 +30,7 @@ const Community = () => {
             <h1> Check out the latest quizzes </h1>
             <p> Currently viewing most recent 
                 <select name="numQuizzes" onChange={ async (e) => {
-                    await getLatest(Number(e.target.value))
+                    getLatest(Number(e.target.value))
                 }}>
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -32,22 +39,15 @@ const Community = () => {
             </p>
         </div>
 
-        {/* <button onClick={() => {getLatest(1)} }>Get Latest 1</button>
-        <button onClick={() => {getLatest(2)} }>Get Latest 2</button>
-        <button onClick={() => {getLatest(10)} }>Get Latest 10</button> */}
-        
-
-        
-        <MotionConfig transition={{ duration: 0.5 }}>
-            <motion.div className={styles.QuizContainer} layout>
-                <AnimatePresence mode="wait">
-                { quizzes && quizzes.map(({id, data}: any, key: any) => (
-                    <QuizLink key={key} id={id} question={data.question} onPointerDown={(e: any) => controls.start(e)} />
+        <AnimatePresence mode="wait">s
+            <motion.div 
+                className={styles.QuizContainer} 
+            >
+                {quizzes && quizzes.map(({id, data}: any, key: any) => (
+                    <QuizLink id={id} data={data} key={id} />
                 )) }
-                </AnimatePresence>
             </motion.div>
-        </MotionConfig>
-
+        </AnimatePresence>
             
     </main>)
 }

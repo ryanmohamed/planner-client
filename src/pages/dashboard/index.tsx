@@ -1,12 +1,10 @@
 import useFirebaseUserContext from "../../../hooks/useFirebaseUserContext";
 import DashboardLayout from "../../../layout/DashboardLayout/DashboardLayout";
 
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import type { NextPageWithLayout } from '../_app'
 
 import styles from './Dashboard.module.css'
-
-import useFirebaseFirestore from '../../../hooks/useFirebaseFirestore'
 
 const Dashboard: NextPageWithLayout = () => {
     const { user } = useFirebaseUserContext()

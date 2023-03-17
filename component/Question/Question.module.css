@@ -1,0 +1,46 @@
+.Question {
+    color: var(--dn-blue5);
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    margin-bottom: 30px;
+    width: fit-content;
+    padding: 10px;
+    font-size: 130%;
+}
+
+.Question h1 {
+    font-family: var(--main-font4);
+    margin-bottom: 10px;
+}
+.Question label {
+    font-family: var(--main-font);
+}
+
+.Question > form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.Question > form > label {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.Question > form > label > input {
+    margin-right: 10px;
+}
+
+.Question > form > span {
+    color: red;
+    
+}
+
+.Question > form > button {
+    margin-top: 20px;
+    height: 30px;
+    width: 100%;
+    align-self: center;
+}

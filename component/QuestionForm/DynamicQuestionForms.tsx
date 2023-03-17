@@ -35,7 +35,7 @@ export default function DynamicQuestionForms({values, ...props}: any) {
                                 { question.type === 't/f' ? <> <div className={styles.TF}> 
                                         <p>The answer is </p>
                                         <Field as="select" name={`questions.${index}.answer`} disabled={question.confirmed}>
-                                            <option defaultValue="none" value="none">Select answer</option>
+                                            <option value="none">Select answer</option>
                                             <option value="true">True</option>
                                             <option value="false">False</option>
                                         </Field> 

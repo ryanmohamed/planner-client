@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&Lobster&family=Golos+Text&family=Kanit:wght@300&family=Manrope:wght@200;300&family=Raleway:wght@20&family=Righteous&family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Poppins:wght@300;400&Lobster&family=Golos+Text&family=Kanit:wght@300&family=Manrope:wght@200;300&family=Raleway:wght@20&family=Righteous&family=Rubik&display=swap');
 
 :root {
   --navheight: 60px;
@@ -12,6 +12,7 @@
   --main-font: 'Manrope', sans-serif;
   --main-font2: 'Rubik', sans-serif;
   --main-font3: 'Golos Text', sans-serif;
+  --main-font4: 'Poppins', sans-serif;
   --display-font: 'Righteous', cursive;
   --display-font2: 'Lobster', cursive;
   --large-font-sz: 60px;

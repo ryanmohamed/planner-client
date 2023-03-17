@@ -2,7 +2,7 @@ import useFirebaseAppContext from "./useFirebaseAppContext"
 import useFirebaseUserContext from "./useFirebaseUserContext"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithRedirect, signInWithPopup, GoogleAuthProvider, signInAnonymously, signOut } from "firebase/auth"
 import { authInfo } from "../component/SignUp/SignUp"
-
+import { useEffect } from "react"
 const GoogleProvider = new GoogleAuthProvider()
 GoogleProvider.addScope('email')
 
@@ -10,8 +10,9 @@ GoogleProvider.addScope('email')
 
 const useFirebaseAuth = () => {
     const { app } = useFirebaseAppContext()
-    const { setUser } = useFirebaseUserContext()
+    const { user, setUser } = useFirebaseUserContext()
     const auth = getAuth(app || undefined)
+
 
     const SignUpWithEmailAndPassword = async ({email, password} : authInfo, errorHandler: CallableFunction) => {
         if ( auth !== null && auth !== undefined ) {

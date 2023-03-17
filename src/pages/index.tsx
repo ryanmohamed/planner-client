@@ -1,17 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from 'react'
 
 import SignUp from '../../component/SignUp/SignUp'
-import Logout from '../../component/Logout/Logout'
 
 import useFirebaseAppContext from '../../hooks/useFirebaseAppContext'
 import useFirebaseUserContext from '../../hooks/useFirebaseUserContext'
+import useFirebaseFirestoreContext from '../../hooks/useFirebaseFirestoreContext'
+import useFirebaseFirestore from '../../hooks/useFirebaseFirestore'
 import Login from '../../component/Login/Login'
 
 import { motion, MotionConfig, AnimatePresence } from 'framer-motion'
-import Link from 'next/link'
 import DashboardPanel from '../../component/Home/DashboardPanel/DashboardPanel'
 
 const marqueeVariants = {
@@ -32,15 +31,18 @@ export default function Home() {
 
   const { user } = useFirebaseUserContext()
   const { app } = useFirebaseAppContext()
+  const { createUser } = useFirebaseFirestore() 
+  const { db } = useFirebaseFirestoreContext()
   const [ toggle, setToggle ] = useState(false)
 
   useEffect(() => {
-    console.log("User: ", user)
-  }, [user])
+    if(db && user)
+      createUser(user)
+}, [user, db])
 
-  useEffect(() => {
-    console.log("App: ", app)
-  }, [app])
+  // useEffect(() => {
+  //   console.log("App: ", app)
+  // }, [app])
 
   return (
     <>
