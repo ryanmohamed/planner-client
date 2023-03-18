@@ -43,7 +43,7 @@
 .Community > header > h1 {
     font-family: var(--alternate-font2);
     color: var(--blue-palette-1);
-    text-shadow: 0px 2px 30px var(--jazz-palette-9);
+    text-shadow: 0px 2px 40px var(--aqua-palette-9);
     margin-bottom: 25px;
 }
 .Community > header > p {
@@ -125,13 +125,26 @@
 
 .QuizContainer {
     /* background-color: red; */
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin: 10px;
+    margin: 10px; */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
 .QuizContainer {
     margin: 70px 50px 0;
     height: min-content;
+}
+
+@media screen and (max-width: 1000px) {
+    .QuizContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 500px) {
+    .QuizContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

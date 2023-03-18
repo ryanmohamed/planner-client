@@ -74,6 +74,7 @@ const Question = (props: any) => {
                     }
                 }} >
                 <Form>
+                    <p>Answer: 👇</p>
                     {type === 'short' ? <Short lock={submitted} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={submitted} /> : <TrueOrFalse lock={submitted} /> }
                     <ErrorMessage component={'span'} name='answer' />
                     <button type="submit">Submit</button>
@@ -81,7 +82,7 @@ const Question = (props: any) => {
                 </Form>
             </Formik>
             
-            { correct !== null && <p>{correct ? 'Correct' : 'Incorrect'}</p>}
+            { correct !== null && <p className={styles.Correct}>{correct ? 'Correct' : 'Incorrect'}</p>}
 
         </div>
     )

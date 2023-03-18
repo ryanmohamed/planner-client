@@ -1,15 +1,21 @@
 .Question {
     color: var(--dn-blue5);
-    border-radius: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid white;
     margin-bottom: 30px;
-    width: fit-content;
-    padding: 10px;
+    max-width: 600px;
+    min-height: 40vh;
+    padding: 30px;
     font-size: 130%;
+    word-break:keep-all;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.Question h1 {
+.Question > h1 {
+    color: var(--jazz-palette-1);
     font-family: var(--main-font4);
+    font-size: 35px;
     margin-bottom: 10px;
 }
 .Question label {
@@ -21,6 +27,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    color: var(--aqua-palette-9);
+}
+
+.Question > form > p {
+    border-bottom: 1px solid var(--jazz-palette-1);
+    align-self: flex-end;
+    font-family: var(--alternate-font);
+    font-size: 30px;
+    color: var(--aqua-palette-9);
+    margin-bottom: 20px;
 }
 
 .Question > form > label {
@@ -31,16 +47,51 @@
 }
 .Question > form > label > input {
     margin-right: 10px;
+    font-size: 20px;
 }
-
+.Question textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 75px;
+    max-height: 200px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 0.25rem;
+    background-color: black;
+    color: var(--aqua-palette-9);
+    font-size: 20px;
+    font-family: var(--main-font4);
+    margin-bottom: 10px;
+}
 .Question > form > span {
+    font-size: 18px;
     color: red;
-    
+    align-self: flex-end;
 }
 
 .Question > form > button {
-    margin-top: 20px;
+    margin: 40px 0 0;
     height: 30px;
     width: 100%;
     align-self: center;
+    max-width: 300px;
+    width: 50%;
+    height: 50px;
+    background: none;
+    border: 1px solid var(--aqua-palette-9);
+    border-radius: 0.75rem;
+    color: var(--jazz-palette-1);
+    font-family: var(--display-font);
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Question > .Correct {
+    font-size: 18px;
+    color: var(--jazz-palette-8);
+    align-self: flex-end;
 }

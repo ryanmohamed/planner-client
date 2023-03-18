@@ -30,19 +30,10 @@ const marqueeVariants = {
 export default function Home() {
 
   const { user } = useFirebaseUserContext()
-  const { app } = useFirebaseAppContext()
-  const { createUser } = useFirebaseFirestore() 
+  const { app } = useFirebaseAppContext() 
   const { db } = useFirebaseFirestoreContext()
   const [ toggle, setToggle ] = useState(false)
 
-  useEffect(() => {
-    if(db && user)
-      createUser(user)
-}, [user, db])
-
-  // useEffect(() => {
-  //   console.log("App: ", app)
-  // }, [app])
 
   return (
     <>
