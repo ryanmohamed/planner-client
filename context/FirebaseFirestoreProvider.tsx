@@ -37,7 +37,7 @@ const FirebaseFirestoreProvider = ({children}: any) => {
     const [ dbUser, setDbUser ] = useState<any>(null)
     const [ listener, setListener ] = useState<any>(false)
     const [ snapShotListener, setSnapShotListener ] = useState<any>(false)
-    const val: any = { db, setDB } // verify types later
+    const val: any = { db, setDB, dbUser } // verify types later
 
     useEffect(() => {
         const database: any = getFirestore(app || undefined) // if the app isn't defined yet, pass undefined - we can get back either an Auth, null, or undefined
@@ -89,12 +89,12 @@ const FirebaseFirestoreProvider = ({children}: any) => {
     useEffect(() => {
         // firestore, user, and listener must be defined before we can establish onSnapshot
         if(!snapShotListener){
-            if(db && user && listener){
-                setSnapShotListener(true)
+            if(db && user){
                 const unsubscribe = onSnapshot(doc(db, "Users", user.uid), (doc: any) => {
                     if(doc.exists()){
                         console.log("Current db user: ", doc.data())
                         setDbUser(doc.data())
+                        setSnapShotListener(true)
                     }
                 })
                 return () => {
