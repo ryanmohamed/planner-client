@@ -6,33 +6,48 @@ import { UserType } from '../context/FirebaseUserProvider'
 import { where, getDoc, query, addDoc, collection, doc, orderBy, setDoc, Timestamp, onSnapshot, DocumentSnapshot, QuerySnapshot, limit, updateDoc } from "firebase/firestore"
 import useFirebaseAppContext from "./useFirebaseAppContext"
 
-interface ScoreData {
-    quiz_id: string, 
-    rated: number, 
-    score: number
-}
-
-interface DbUser {
-    displayName: string,
-    img_url: string,
-    xp: number,
-    scores: ScoreData[],
-    timestamp: Timestamp
-} 
-
-type DbUserType = DbUser | null
 
 // CRUD operations
 const useFirebaseFirestore = () => {
     const { app } = useFirebaseAppContext()
     const { user } = useFirebaseUserContext()
-    const { db } = useFirebaseFirestoreContext()
-    const [ dbUser, setDbUser ] = useState<DbUserType>(null)
+    const { db, dbUser } = useFirebaseFirestoreContext()
 
-    // the main realtime data we should have is the USER
-    // for a lot of UX/UI components we need to check some details from the user
-    // performing a read operation when data hasn't even changed is inefficient
-    // when we're reading so often, listen to changes on the user
+    const createQuiz = async (values: any) => {
+        if(db && user && dbUser){
+            const { uid } = user
+            const cleaned: any[] = values.questions.map((val: any) => ({
+                answer: val.answer,
+                choices: val?.choices || { a: '', b: '', c: '', d: '' }, //undefined not allowed in firestore
+                question: val.question,
+                type: val.type,
+            }))
+
+            const payload = {
+                title: values.title,
+                subject: values.subject,
+                questions: cleaned,
+                attempts: 0, 
+                rating: 0,
+                timestamp: Timestamp.fromDate(new Date()),
+                uid: uid
+            }
+            // create quiz
+            const docRef = await addDoc(collection(db, "Quizzes"), payload)
+            .then(async (docRef) => {
+                console.log("Created new quiz with id: ", docRef?.id)
+                // update user
+                await updateDoc(doc(db, "Users", user.uid), {
+                    quizzes: [...dbUser?.quizzes, docRef?.id],
+                    timestamp: Timestamp.fromDate(new Date())
+                })
+                .then(() => console.log("Updated user quizzes field!"))
+                .catch((err: any) => console.log("Error updating user's quizzes: ", err))
+            })
+            .catch((err: any) => console.log("Error creating quiz", err))            
+
+        }
+    }
 
     // we need to WRITE a user first
     // const createUser = async (user: UserType) => {
@@ -280,7 +295,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { }
+    return { createQuiz }
 }
 
 export default useFirebaseFirestore

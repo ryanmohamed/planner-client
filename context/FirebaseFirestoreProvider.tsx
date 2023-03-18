@@ -22,6 +22,7 @@ type DbUser = {
     img_url: string,
     xp: number,
     scores: ScoreData[],
+    quizzes: string[],
     timestamp: Timestamp
 } 
 
@@ -44,6 +45,11 @@ const FirebaseFirestoreProvider = ({children}: any) => {
         setDB(database)
     }, [app])
 
+     // the main realtime data we should have is the USER
+    // for a lot of UX/UI components we need to check some details from the user
+    // performing a read operation when data hasn't even changed is inefficient
+    // when we're reading so often, listen to changes on the user
+    
     // add the listener ONCE when the app mounts, and only add it once db and user are defined, hence dependencies and flag
     useEffect(() => {
         if(!listener){
@@ -74,6 +80,7 @@ const FirebaseFirestoreProvider = ({children}: any) => {
                     img_url: user?.photoURL || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
                     xp: 0,
                     scores: [], // no score when we created it
+                    quizzes: [],
                     timestamp: Timestamp.fromDate(new Date())
                 }
                 await setDoc(doc(db, 'Users', user.uid), payload)
