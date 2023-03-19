@@ -50,7 +50,7 @@ const TrueOrFalse = (props: any) => {
  
 const Question = (props: any) => {
     const { question, type, choices } = props.question
-    const { idx, lock } = props
+    const { idx, children } = props
   
     return (
         <div className={styles.Question} key={idx}>
@@ -58,8 +58,9 @@ const Question = (props: any) => {
             <h1>{question}</h1>
             <p>Answer: 👇</p>
             <div className={styles.FieldContainer}>
-            {type === 'short' ? <Short lock={false} idx={idx} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={false} idx={idx}/> : <TrueOrFalse lock={false} idx={idx} /> }
-            <ErrorMessage component={'span'} name={`answers.${idx}`} />
+                {type === 'short' ? <Short lock={false} idx={idx} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={false} idx={idx}/> : <TrueOrFalse lock={false} idx={idx} /> }
+                <ErrorMessage component={'span'} name={`answers.${idx}`} />
+                { children }
             </div>
 
         </div>

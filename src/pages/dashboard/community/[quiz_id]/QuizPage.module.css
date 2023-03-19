@@ -58,3 +58,24 @@
     justify-content: center;
     box-shadow: 0 2px 50px var(--jazz-palette-1);
 }
+
+/* medium */
+@media screen and (max-width: 800px) {
+    .QuizPage > .Start {
+        font-size: 22px;
+    }
+}
+
+/* small */
+@media screen and (max-width: 500px) {
+    .QuizPage > .Start {
+        font-size: 18px;
+    }
+}
+
+/* tiny */
+@media screen and (max-width: 300px) {
+    .QuizPage > .Start {
+        font-size: 15px;
+    }
+}
