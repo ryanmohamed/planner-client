@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { onAuthStateChanged, getAuth } from "firebase/auth"
-import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
-import useFirebaseUserContext from "./useFirebaseUserContext"
-import { UserType } from '../context/FirebaseUserProvider'
-import { where, getDoc, query, addDoc, collection, doc, orderBy, setDoc, Timestamp, onSnapshot, DocumentSnapshot, QuerySnapshot, limit, updateDoc } from "firebase/firestore"
-import useFirebaseAppContext from "./useFirebaseAppContext"
+import { QuizHeader } from "QuizHeaderType"
 
+// context
+import useFirebaseAppContext from "./useFirebaseAppContext"
+import useFirebaseUserContext from "./useFirebaseUserContext"
+import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
+
+// fire store
+import { query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter } from "firebase/firestore"
 
 // CRUD operations
 const useFirebaseFirestore = () => {
@@ -13,9 +15,20 @@ const useFirebaseFirestore = () => {
     const { user } = useFirebaseUserContext()
     const { db, dbUser } = useFirebaseFirestoreContext()
 
+    // PAGINATE
+    // For a seamless infinite scroll we need an array to contain the data from all quizzes fetched so far
+    // however we don't really want to store additional data besides header fields due to overhead of the storing all of that as
+    // for example we don't need image data or anything about the questions, just the title and author
+    // + additionally we will alter our NoSQL db (unnormalize) and include some reduncacies to decrease read amount
+    //  particularly img_url, author in Quizzes, and the quizzes foreign key in Users
+    const [ quizHeaders, setQuizHeaders ] = useState<QuizHeader[]>([])
+    const [ lastDocSnap, setLastDocSnap ] = useState<any>(null)
+
     const createQuiz = async (values: any) => {
         if(db && user && dbUser){
-            const { uid } = user
+            const { uid, photoURL, displayName } = user
+
+            // remove confirmed boolean
             const cleaned: any[] = values.questions.map((val: any) => ({
                 answer: val.answer,
                 choices: val?.choices || { a: '', b: '', c: '', d: '' }, //undefined not allowed in firestore
@@ -26,11 +39,13 @@ const useFirebaseFirestore = () => {
             const payload = {
                 title: values.title,
                 subject: values.subject,
+                author: displayName || 'Anonymous',
                 questions: cleaned,
                 attempts: 0, 
                 rating: 0,
                 timestamp: Timestamp.fromDate(new Date()),
-                uid: uid
+                uid: uid,
+                img_url: photoURL
             }
             // create quiz
             const docRef = await addDoc(collection(db, "Quizzes"), payload)
@@ -45,48 +60,76 @@ const useFirebaseFirestore = () => {
                 .catch((err: any) => console.log("Error updating user's quizzes: ", err))
             })
             .catch((err: any) => console.log("Error creating quiz", err))            
-
         }
     }
 
-    // we need to WRITE a user first
-    // const createUser = async (user: UserType) => {
-    //     // the user must atleast exist
-    //     if (user && db) {
-    //         // query the database for a matching this users uid, this will most likely count as 1 read since 1 document at max will be returned
-    //         const docRef = doc(db, "Users", `${user?.uid}`)
-    //         const docSnap = await getDoc(docRef)
-    //         if(docSnap.exists()){
-    //             console.log("Found data: ", docSnap.data())
-    //         }
-    //         else console.log("No such user found")
-        
+    // loading posts is a tricky ask
+    // while we may want our "feed" to be as recent and realtime as possible
+    // streaming this data through a listener in this case cannot scale
+    // every user is listening to the entire Quizzes collection for updates and simply returns the top 1-50
+    // thats a big cost for a such a small return
+    // rather we should fetch this data ONLY when asked
 
-    //         // const payload: DbUserType = {
-    //         //     displayName: user?.displayName || 'Anonymous',
-    //         //     img_url: user?.photoURL || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
-    //         //     xp: 0,
-    //         //     scores: [], // no score when we created it
-    //         //     timestamp: Timestamp.fromDate(new Date())
-    //         // }
-    //     }
-    //         // const quizzes_colref = collection(db, "Quizzes")
-            
-    //         // await addDoc(quizzes_colref, payload)
-    //         // .then( val => console.log(val) )
-    //         // .catch( err => console.log("error", err))
-    // }
+    // like an assignment operation, replaces previous contents
+    const fetchRecentQuizzes = async (n: number) => {
+        if (db && user && dbUser) {
+            // N reads
+            const querySnapshot = await getDocs(query(collection(db, "Quizzes"), orderBy("timestamp", "desc"), limit(n))) // keep in mind this will first query the server and then the cache in certain scenarios
+            let headers: QuizHeader[] = []
+            querySnapshot.forEach((doc) => {
+                // doc.data() never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data())
+                headers.push({
+                    title: doc.data()?.title,
+                    subject: doc.data()?.subject,
+                    author: doc.data()?.author,
+                    img_url: doc.data()?.img_url,
+                    num_questions: doc.data()?.questions.length,
+                    rating: doc.data()?.rating,
+                    id: doc?.id 
+                })
+            })
 
-    // const createUser = async (user: any) => {
-    //     if (!user || !db) return
-    //     const doc_path = `/Users/${user.uid}`
-    //     const payload = {
-    //         displayName: user?.displayName || 'Anonymous',
-    //         img_url: user?.photoURL || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
-    //         score: [],
-    //         xp: 0
-    //     }
+            console.log("headers: ", headers)
+            setQuizHeaders(headers)
 
+            // use the last document as a starting point in pagination
+            const last = querySnapshot.docs[querySnapshot.size - 1]
+            setLastDocSnap(last)
+        }
+    }
+
+
+    const fetchNextRecentQuizzes = async (n: number) => {
+        // if we have a last doc
+        if (lastDocSnap) {
+            const collection_ref = collection(db, "Quizzes")
+            const q = query(collection_ref, orderBy("timestamp", "desc"), limit(n), startAfter(lastDocSnap))
+            const querySnapshot = await getDocs(q)
+
+            // if we find more quizzes, copy the previous state and update the current header data for the infinite scroll
+            if (!querySnapshot.empty){
+                const headerCopy: QuizHeader[] = [...quizHeaders] // copy previous state
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.id, " => ", doc.data())
+                    headerCopy.push({
+                        title: doc.data()?.title,
+                        subject: doc.data()?.subject,
+                        author: doc.data()?.author,
+                        img_url: doc.data()?.img_url,
+                        num_questions: doc.data()?.questions.length,
+                        rating: doc.data()?.rating,
+                        id: doc?.id 
+                    })
+                })
+                console.log("header: ", headerCopy)
+                setQuizHeaders(headerCopy)
+                // use the last document as a starting point in pagination
+                const last = querySnapshot.docs[querySnapshot.size - 1]
+                setLastDocSnap(last)
+            }
+        }
+    }
 
     // useEffect((): any => {
     //     const unsubscribe = streamQuizzes(quizNum, 
@@ -112,83 +155,6 @@ const useFirebaseFirestore = () => {
     //         unsubscribe
     //     }
     // }, [quizNum])
-
-    // CREATE 
-    // const createQuiz = async (values: any, user: any) => {
-    //     if(db){
-    //         const { uid } = user
-    //         const cleaned: any[] = values.questions.map((val: any) => ({
-    //             answer: val.answer,
-    //             choices: val?.choices || { a: '', b: '', c: '', d: '' }, //undefined not allowed in firestore
-    //             question: val.question,
-    //             type: val.type,
-    //         }))
-
-    //         const payload = {
-    //             attempts: 0, 
-    //             question: {
-    //                 title: values.title,
-    //                 subject: values.subject,
-    //                 questions: cleaned,
-    //             },
-    //             rating: 0,
-    //             timestamp: Timestamp.fromDate(new Date()),
-    //             uid: uid
-    //         }
-    //         const quizzes_colref = collection(db, "Quizzes")
-            
-    //         await addDoc(quizzes_colref, payload)
-    //         .then( val => console.log(val) )
-    //         .catch( err => console.log("error", err))
-    //     }
-    // }
-
-    // const createUser = async (user: any) => {
-    //     if (!user || !db) return
-    //     const doc_path = `/Users/${user.uid}`
-    //     const payload = {
-    //         displayName: user?.displayName || 'Anonymous',
-    //         img_url: user?.photoURL || 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png',
-    //         score: [],
-    //         xp: 0
-    //     }
-
-    //     // check first 
-    //     let user_doc = await getDoc(doc(db, doc_path))
-    //     .then((docSnapshot: DocumentSnapshot) => docSnapshot.data())
-    //     .catch((err: any) => err)
-    //     .then(res => res)
-
-    //     //this will rewrite the document, check if one exists first
-    //     if(!user_doc){
-    //         await setDoc(doc(db, doc_path), payload)
-    //         .then(() => console.log("User created..."))
-    //         .catch(err => console.log("Error: ...", err))
-    //     } 
-    //     else console.log("User already exists")
-    // }
-
-
-    // const createScore = async (id: any, score: any) => {
-    //     if(user && db){
-    //         const doc_ref = doc(db, `/Users/${user.uid}`)
-    //         const scores = await getScores().then(val => val)
-            
-    //         if(scores.some((ele: any) => ele?.quiz_id === id)){
-    //             return
-    //         }
-    //         scores.push({
-    //             quiz_id: id,
-    //             score: score, // before taking quiz
-    //             rated: false
-    //         })
-
-    //         await updateDoc(doc_ref, 'score', scores)
-    //         .then(() => console.log("Update succesfully to ", scores))
-    //         .catch(err => console.log(err))
-    //     }
-    // }
-
 
     // // READ
     // const streamQuizzes = async (n: number = 5, snapshot: any, error: any) => {
@@ -295,7 +261,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { createQuiz }
+    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders }
 }
 
 export default useFirebaseFirestore

@@ -16,6 +16,7 @@ const Dashboard: NextPageWithLayout = () => {
             <p className="subheading"> Check out how your latests posts have been doing below</p>
             <p className="subheading">XP: { dbUser && dbUser?.xp }</p>
             <p className="subheading">Quizzes taken: { dbUser && dbUser?.scores.length }</p>
+            <p className="subheading">Quizzes created: { dbUser && dbUser?.quizzes.length }</p>
             
         </div>
     </main>)

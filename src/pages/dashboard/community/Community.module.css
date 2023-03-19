@@ -1,7 +1,7 @@
 .Community {
     background-color: var(--jazz-palette-7);
     background-image: url('/svgs/waves6.svg');
-    background-position: top 400px right 0px;
+    background-position: top 650px right 0px;
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 10vh;
@@ -147,4 +147,29 @@
     .QuizContainer {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.Temp {
+    display: grid;
+    place-items: center;
+    margin-top: 100px;
+}
+
+.Temp > button {
+    min-width: 200px;
+    width: 50%;
+    height: 50px;
+    border: none;
+    background-color: var(--main-txt);
+    color: var(--jazz-palette-1);
+    font-family: var(--main-font4);
+    font-size: 20px;
+    text-align: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.Temp > button:hover {
+    scale: 1.05;
 }
