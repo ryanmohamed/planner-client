@@ -1,5 +1,5 @@
 .Question {
-    color: var(--dn-blue5);
+    color: var(--aqua-palette-9);
     border: 1px solid white;
     margin-bottom: 30px;
     max-width: 600px;
@@ -22,7 +22,7 @@
     font-family: var(--main-font);
 }
 
-.Question > form {
+.Question > .FieldContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,7 +30,7 @@
     color: var(--aqua-palette-9);
 }
 
-.Question > form > p {
+.Question > .FieldContainer > p {
     border-bottom: 1px solid var(--jazz-palette-1);
     align-self: flex-end;
     font-family: var(--alternate-font);
@@ -39,13 +39,13 @@
     margin-bottom: 20px;
 }
 
-.Question > form > label {
+.Question > .FieldContainer > label {
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
     margin-bottom: 5px;
 }
-.Question > form > label > input {
+.Question > .FieldContainer > label > input {
     margin-right: 10px;
     font-size: 20px;
 }
@@ -63,13 +63,13 @@
     font-family: var(--main-font4);
     margin-bottom: 10px;
 }
-.Question > form > span {
+.Question > .FieldContainer > span {
     font-size: 18px;
     color: red;
     align-self: flex-end;
 }
 
-.Question > form > button {
+.Question > .FieldContainer > button {
     margin: 40px 0 0;
     height: 30px;
     width: 100%;

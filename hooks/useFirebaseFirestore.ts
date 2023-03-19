@@ -7,7 +7,8 @@ import useFirebaseUserContext from "./useFirebaseUserContext"
 import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
 
 // fire store
-import { query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter } from "firebase/firestore"
+import { query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter, getDoc } from "firebase/firestore"
+import { DocumentData, DocumentSnapshot } from "@google-cloud/firestore"
 
 // CRUD operations
 const useFirebaseFirestore = () => {
@@ -99,7 +100,6 @@ const useFirebaseFirestore = () => {
         }
     }
 
-
     const fetchNextRecentQuizzes = async (n: number) => {
         // if we have a last doc
         if (lastDocSnap) {
@@ -127,6 +127,16 @@ const useFirebaseFirestore = () => {
                 // use the last document as a starting point in pagination
                 const last = querySnapshot.docs[querySnapshot.size - 1]
                 setLastDocSnap(last)
+            }
+        }
+    }
+
+    const fetchQuizById = async (id: any): Promise<DocumentData | undefined> => {
+        if (db && user && dbUser) {
+            const docSnapshot = await getDoc(doc(db, "Quizzes", id))
+            if (docSnapshot.exists()){
+                console.log("it exists")
+                return docSnapshot.data() // do not return with the answer ** REVISE **
             }
         }
     }
@@ -261,7 +271,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders }
+    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById }
 }
 
 export default useFirebaseFirestore

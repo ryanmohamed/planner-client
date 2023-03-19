@@ -6,41 +6,43 @@ import { useEffect, useState } from 'react'
 import { off } from 'process'
 
 const Short = (props: any) => {
+    const { idx, lock } = props
     return (<>
-        <Field as="textarea" name="answer" placeholder="Enter your answer" disabled={props.lock}/>
+        <Field as="textarea" name={`answers.${idx}`} placeholder="Enter your answer" disabled={lock}/>
     </>)
 }
 
-const MultipleChoice = ({ lock, choices }: any) => {
+const MultipleChoice = ({ lock, choices, idx }: any) => {
     const { a,b,c,d } = choices
     return (<>
         <label>
-            <Field type="radio" name="answer" value='a'  disabled={lock} />
+            <Field type="radio" name={`answers.${idx}`} value='a'  disabled={lock} />
             {a}
         </label>
         <label>
-            <Field type="radio" name="answer" value='b' disabled={lock}  />
+            <Field type="radio" name={`answers.${idx}`} value='b' disabled={lock}  />
             {b}
         </label>
         <label>
-            <Field type="radio" name="answer" value= 'c' disabled={lock} />
+            <Field type="radio" name={`answers.${idx}`} value= 'c' disabled={lock} />
             {c}
         </label>
         <label>
-            <Field type="radio" name="answer" value='d'  disabled={lock} />
+            <Field type="radio" name={`answers.${idx}`} value='d'  disabled={lock} />
             {d}
         </label>
     </>)
 }
 
 const TrueOrFalse = (props: any) => {
+    const { idx, lock } = props
     return (<>
         <label>
-            <Field type="radio" name="answer" value="true" disabled={props.lock} />
+            <Field type="radio" name={`answers.${idx}`} value="true" disabled={lock} />
             True
         </label>
         <label>
-            <Field type="radio" name="answer" value="false" disabled={props.lock} />
+            <Field type="radio" name={`answers.${idx}`} value="false" disabled={lock} />
             False
         </label>
     </>)
@@ -48,41 +50,17 @@ const TrueOrFalse = (props: any) => {
  
 const Question = (props: any) => {
     const { question, type, choices } = props.question
-    const { numCompleted, setNumCompleted } = props.update
-    const [ submitted, setSubmitted ] = useState<boolean>(false)
-    const [ correct, setCorrect ] = useState<any>(null)
-    const { checkAnswer } = useFirebaseFirestore()
-
+    const { idx, lock } = props
+  
     return (
-        <div className={styles.Question}>
+        <div className={styles.Question} key={idx}>
 
             <h1>{question}</h1>
-            <Formik
-                initialValues={{ answer: '' }}
-                validationSchema={ Yup.object({
-                    answer: Yup.string().required('Answer required.'),
-                }) }
-                onSubmit={ async ({answer}) => {
-                    if (!submitted) {
-                        await checkAnswer(props.id, props.idx, answer)
-                        .then(val => {
-                            setCorrect(val)
-                            setNumCompleted([...numCompleted, val])
-                            console.log(val)
-                        })
-                        setSubmitted(true)
-                    }
-                }} >
-                <Form>
-                    <p>Answer: 👇</p>
-                    {type === 'short' ? <Short lock={submitted} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={submitted} /> : <TrueOrFalse lock={submitted} /> }
-                    <ErrorMessage component={'span'} name='answer' />
-                    <button type="submit">Submit</button>
-                    {/* <p>{ correct }</p> */}
-                </Form>
-            </Formik>
-            
-            { correct !== null && <p className={styles.Correct}>{correct ? 'Correct' : 'Incorrect'}</p>}
+            <p>Answer: 👇</p>
+            <div className={styles.FieldContainer}>
+            {type === 'short' ? <Short lock={false} idx={idx} /> : type === 'mc' ? <MultipleChoice choices={choices} lock={false} idx={idx}/> : <TrueOrFalse lock={false} idx={idx} /> }
+            <ErrorMessage component={'span'} name={`answers.${idx}`} />
+            </div>
 
         </div>
     )
