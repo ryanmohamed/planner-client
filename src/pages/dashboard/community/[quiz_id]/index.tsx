@@ -32,6 +32,7 @@ const QuizPage = () => {
     
     const [ score, setScore ] = useState<any>(null)
     const [ rating, setRating ] = useState<any>(3) // Initial value
+    const [ submitted, setSubmitted ] = useState<boolean>(false)
 
     // we only want to fetch the quiz once on mount
     // but similarly as before, wait for db and user to be defined
@@ -72,25 +73,28 @@ const QuizPage = () => {
 
         { /* TAKEN QUIZ BEFORE */
             dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
-                <h6>You've taken this quiz before! </h6>
-                <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
+                
+                <div className={styles.History}>
+                    <h6>You've taken this quiz before! </h6>
+                    <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
+                </div>
 
-                <div>
-                    <p>Help the author out by giving this quiz a rating! </p>
+                <div className={styles.Rating}>
+                    <p> { hasRated() ? "You've rated this quiz already!" : "Help the author out by giving this quiz a rating!" } </p>
                     <Rating
                         style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
                         value={ hasRated() ? quiz?.rating : rating }
                         readOnly={ hasRated() ? true : false }
                         onChange={setRating}
                     />
-                    <button onClick={async () => {
-                        if (!hasRated()){
-                            await submitRating(rating, router.query.quiz_id)
-                            .then((val) => {
-                                setQuiz(val?.data())
-                            }) //retrieve new version
-                        }
-                    }}>Submit rating</button>
+                    { !hasRated() && <button onClick={async () => {
+                        await submitRating(rating, router.query.quiz_id)
+                        .then((val) => {
+                            setQuiz(val?.data())
+                        }) //retrieve new version
+                    }}>
+                        Submit rating
+                    </button>}
                 </div>
 
             </>
@@ -114,6 +118,7 @@ const QuizPage = () => {
                     const s = await submitAnswers(answers, router.query.quiz_id)
                     if(s) {
                         setScore(s)
+                        setSubmitted(true)
                     }
                 }}
             >
@@ -135,26 +140,12 @@ const QuizPage = () => {
                         )) }
                         { /* if we have the main level error */}
                         { typeof props.errors.answers === 'string' && <span id="feedback">{props.errors.answers}</span>}
-                        { !score && <button type='submit'>Submit</button> }
+                        { !submitted && <button type='submit'>Submit</button>}
                     </form>
                 }
             </Formik>
 
         </> }
-
-        { /* once done */}
-        {/* { numCompleted?.length === quiz?.quiz?.questions.length && <>
-            {  rating }
-            <div>
-                <p>Help the author out by giving this quiz a rating! </p>
-                <Rating
-                    style={{ maxWidth: 180, filter: rated ? 'saturate(0.5)' : 'none' }}
-                    value={rated ? quiz?.rating : rating}
-                    readOnly={rated ? true : false}
-                    onChange={setRating}
-                />
-            </div>
-        </> } */}
 
     </main>}
     </>)

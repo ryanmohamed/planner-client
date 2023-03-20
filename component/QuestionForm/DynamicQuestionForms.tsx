@@ -90,8 +90,7 @@ export default function DynamicQuestionForms({values, ...props}: any) {
                                                 e.preventDefault()
                                                 let cpy = question
                                                 cpy.confirmed = !question.confirmed
-                                                arrayHelpers.replace(index, cpy) // use array helpers to cause update to form values and therefore rerender
-                                                
+                                                arrayHelpers.replace(index, cpy) // use array helpers to cause update to form values and therefore rerender     
                                             } }
                                         >
                                             <Image src={ question.confirmed ? edit : confirm } alt="confirm or edit" height={25} width={25}/>
