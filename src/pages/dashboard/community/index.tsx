@@ -12,6 +12,7 @@ import useFirebaseFirestoreContext from "../../../../hooks/useFirebaseFirestoreC
 
 import { motion, AnimatePresence, useScroll } from "framer-motion"
 import QuizLink from "../../../../component/QuizLink/QuizLink"
+import { Formik, Form, Field } from "formik"
 
 // import useMeasure from "react-use-measure"
 // import ignoreCircularReferences from "../../../../lib/ignoreCircularReferences"
@@ -19,7 +20,7 @@ import QuizLink from "../../../../component/QuizLink/QuizLink"
 const Community = () => {
     const { user } = useFirebaseUserContext()
     const { db, dbUser } = useFirebaseFirestoreContext()
-    const { quizHeaders, fetchRecentQuizzes, fetchNextRecentQuizzes } = useFirebaseFirestore()
+    const { quizHeaders, fetchRecentQuizzes, fetchNextRecentQuizzes, queryQuizzesBySubject } = useFirebaseFirestore()
     // const [ ref, { height } ] = useMeasure()
 
     // fetch recent quizzes on first mount
@@ -31,36 +32,50 @@ const Community = () => {
     useEffect(() => {
         if(db && user && dbUser && !hasMounted){
             const fetch = async () => {
-                await fetchRecentQuizzes(1)
+                await fetchRecentQuizzes(4)
                 .then(() => setMounted(true))
             }
             fetch()
         }
     }, [db, user, dbUser, hasMounted])
 
-
-
-
     return (<main className={styles.Community}>
         <header>
             <h1 className="heading">Take a quiz.</h1>
             <p className="subheading">Try our most recent submissions, top rated, or a subject of your choice.</p>
-            <input type="search" placeholder="Search for a subject"/>
+            <Formik
+                initialValues={{ subject: '' }}
+                onSubmit={ async ({subject}: any) => {
+                    if (subject.trim() === ''){
+                        fetchRecentQuizzes(4)
+                    }
+                    else {
+                        queryQuizzesBySubject(subject)
+                    }
+                }}
+                onReset={()=>console.log("reset")}
+            >
+            <Form>
+                <Field type="text" name="subject" placeholder="Search for a subject"/>
+            </Form>
+            </Formik>
             <img src="/svgs/waves4.svg" />
         </header>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout">
             <motion.div 
                 className={styles.QuizContainer} 
             >
                 { quizHeaders.length > 0 && quizHeaders.map((header: QuizHeader, key: Key) => (
-                    <QuizLink header={header} key={key} />
+                    <span key={key}>
+                        <QuizLink header={header} idx={key} />
+                    </span>
                 )) }
             </motion.div>
         </AnimatePresence>
-        
+         
         <div className={styles.Temp}>
-         <button onClick={()=>{fetchNextRecentQuizzes(2)}}>Load 2 more</button>
+         <button id="fetch" onClick={()=>{fetchNextRecentQuizzes(2)}}>Load 2 more</button>
         </div>
     </main>)
 }

@@ -17,7 +17,10 @@ import styles from './QuizPage.module.css'
 
 import { AnimatePresence, motion } from 'framer-motion'
 import useFirebaseFirestoreContext from '../../../../../hooks/useFirebaseFirestoreContext'
+import Modal from '../../../../../component/Modal/Modal'
 
+import Image from 'next/image'
+import QuestionCarousel from '../../../../../component/QuestionCarousel/QuestionCarousel'
 
 const QuizPage = () => {
     const router = useRouter()
@@ -64,43 +67,46 @@ const QuizPage = () => {
     {/* <button onClick={() => fetchQuizById(router.query.quiz_id).then(doc => console.l)}>fetch</button> */}
     { !quiz ? <>An error occured. <p>{error}</p> </> : <main className={styles.QuizPage}>
         
-        <motion.h1 initial={{ y: -200 }} animate={{ y: 0 }} id="title">{quiz.title}</motion.h1>
-        <h3 id="subject">{quiz.subject}</h3>
-        <h6 id="author">Author: <span>{quiz.author}</span></h6>
-        <h6 id="challenger">Challenger: <span>{dbUser?.displayName}</span></h6>
-        
-        { console.log(quiz?.rating) }
+        <header>
+            <motion.h1 initial={{ y: -200 }} animate={{ y: 0 }} id="title">{quiz.title}</motion.h1>
+            <h3 id="subject">{quiz.subject}</h3>
 
-        { /* TAKEN QUIZ BEFORE */
-            dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
-                
-                <div className={styles.History}>
-                    <h6>You've taken this quiz before! </h6>
-                    <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
-                </div>
+            <Image src={quiz.img_url} width={40} height={40} alt={"quiz poster profile pic"}/>
+            <h6 id="author">Author: <span>{quiz.author}</span></h6>
+            <h6 id="challenger">Challenger: <span>{dbUser?.displayName}</span></h6>
 
-                <div className={styles.Rating}>
-                    <p> { hasRated() ? "You've rated this quiz already!" : "Help the author out by giving this quiz a rating!" } </p>
-                    <Rating
-                        style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
-                        value={ hasRated() ? quiz?.rating : rating }
-                        readOnly={ hasRated() ? true : false }
-                        onChange={setRating}
-                    />
-                    { !hasRated() && <button onClick={async () => {
-                        await submitRating(rating, router.query.quiz_id)
-                        .then((val) => {
-                            setQuiz(val?.data())
-                        }) //retrieve new version
-                    }}>
-                        Submit rating
-                    </button>}
-                </div>
 
-            </>
-        }
+            { /* TAKEN QUIZ BEFORE */
+                dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
+                    
+                    <Modal>
+                        <h6>You've taken this quiz before! </h6>
+                        <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
+                    </Modal>
 
-        <p className={styles.Completed}>Score: {score?.count || 0}/{quiz.questions.length}</p>
+                    <div className={styles.Rating}>
+                        <p> { hasRated() ? "Thanks for rating!" : "Help the author out by giving this quiz a rating!" } </p>
+                        <Rating
+                            style={{ maxWidth: 180, filter: hasRated() ? 'saturate(0.4)' : 'none' }}
+                            value={ hasRated() ? quiz?.rating : rating }
+                            readOnly={ hasRated() ? true : false }
+                            onChange={setRating}
+                        />
+                        { !hasRated() && <button onClick={async () => {
+                            await submitRating(rating, router.query.quiz_id)
+                            .then((val) => {
+                                setQuiz(val?.data())
+                            }) //retrieve new version
+                        }}>
+                            Submit rating
+                        </button>}
+                    </div>
+
+                </>
+            }
+
+            <p className={styles.Completed}>Score: {score?.count || 0}/{quiz.questions.length}</p>
+        </header>
 
         { !start ? <motion.button key={'button'} className={styles.Start} animate={{ scale: [1, 1.01, 1.03, 1.05, 1.03, 1.01, 1] }} exit={{opacity: 0 }} transition={{ scale: { repeatType: 'loop', repeat: Infinity } }} onClick={()=>setStart(true)}>Click to start</motion.button> : <>
 
@@ -122,22 +128,19 @@ const QuizPage = () => {
                     }
                 }}
             >
+                
                 {
                     props => <form onSubmit={(e) => {props.handleSubmit(e)}}>
-                        { quiz.questions.map((question: any, key: any) => (
+                        
+                        <FieldArray 
+                            name="answers"
+                            render={ arrayHelpers => (<>
 
-                            <div key={key} className={styles.QuestionContainer}>
-                                <FieldArray 
-                                    name="answers"
-                                    render={ arrayHelpers => (<>
-                                        <Question question={question} idx={key}>
-                                            { (score) && <p>Answer: {score.answer_key[key]}</p> }
-                                        </Question> 
-                                    </>) }
-                                />
-                            </div>
+                                <QuestionCarousel questions={quiz.questions} score={score} />
 
-                        )) }
+                            </>) }
+                        />
+
                         { /* if we have the main level error */}
                         { typeof props.errors.answers === 'string' && <span id="feedback">{props.errors.answers}</span>}
                         { !submitted && <button type='submit'>Submit</button>}

@@ -8,7 +8,7 @@ import useFirebaseUserContext from "./useFirebaseUserContext"
 import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
 
 // fire store
-import { query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter, getDoc, increment, runTransaction } from "firebase/firestore"
+import { where, query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter, getDoc, increment, runTransaction } from "firebase/firestore"
 import { DocumentData, DocumentSnapshot } from "@google-cloud/firestore"
 
 // CRUD operations
@@ -25,6 +25,12 @@ const useFirebaseFirestore = () => {
     //  particularly img_url, author in Quizzes, and the quizzes foreign key in Users
     const [ quizHeaders, setQuizHeaders ] = useState<QuizHeader[]>([])
     const [ lastDocSnap, setLastDocSnap ] = useState<any>(null)
+
+
+    // 1 - recent
+    // 2 - searchType
+    const [ queryType, setQueryType ] = useState<any>(1)
+    const [ subject, setSubject ] = useState<any>(null)
 
     const createQuiz = async (values: any) => {
         if(db && user && dbUser){
@@ -98,6 +104,8 @@ const useFirebaseFirestore = () => {
             // use the last document as a starting point in pagination
             const last = querySnapshot.docs[querySnapshot.size - 1]
             setLastDocSnap(last)
+
+            setQueryType(1)
         }
     }
 
@@ -105,7 +113,7 @@ const useFirebaseFirestore = () => {
         // if we have a last doc
         if (lastDocSnap) {
             const collection_ref = collection(db, "Quizzes")
-            const q = query(collection_ref, orderBy("timestamp", "desc"), limit(n), startAfter(lastDocSnap))
+            const q = queryType === 1 ? query(collection_ref, orderBy("timestamp", "desc"), limit(n), startAfter(lastDocSnap)) : query(collection(db, "Quizzes"), where('subject', '==', subject), limit(n), startAfter(lastDocSnap))
             const querySnapshot = await getDocs(q)
 
             // if we find more quizzes, copy the previous state and update the current header data for the infinite scroll
@@ -157,6 +165,37 @@ const useFirebaseFirestore = () => {
         }
     }
 
+    const queryQuizzesBySubject = async (subject: string) => {
+        if (db && user && dbUser) {
+            const querySnapshot = await getDocs(query(collection(db, "Quizzes"), where('subject', '==', subject), limit(5)))
+            let headers: QuizHeader[] = []
+            querySnapshot.forEach((doc) => {
+                // doc.data() never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data())
+                headers.push({
+                    title: doc.data()?.title,
+                    subject: doc.data()?.subject,
+                    author: doc.data()?.author,
+                    img_url: doc.data()?.img_url,
+                    num_questions: doc.data()?.questions.length,
+                    rating: doc.data()?.rating,
+                    id: doc?.id 
+                })
+            })
+
+            setSubject(subject)
+
+            console.log("headers: ", headers)
+            setQuizHeaders(headers)
+
+            // use the last document as a starting point in pagination
+            const last = querySnapshot.docs[querySnapshot.size - 1]
+            setLastDocSnap(last)
+
+            setQueryType(2)
+        }
+    }
+
     // recall we need to only submit answers
     // if the user hasn't taken the question before
     // luckily we have the dbUser state to check
@@ -177,6 +216,7 @@ const useFirebaseFirestore = () => {
                     // don't do anything if the arrays dont share the same length
                     if(values.answer_key.length === answers.length){
                         for (let i = 0; i < answers.length; i++)
+                        
                             if (values.answer_key[i] === answers[i])
                                 values.count++
 
@@ -286,7 +326,7 @@ const useFirebaseFirestore = () => {
 
     
     // createQuiz, getLatest, quizzes, getQuiz, checkAnswer, createUser, createScore, updateScore, getScores, updatePlayerRating, updateQuizRating, getUser
-    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating }
+    return { createQuiz, fetchRecentQuizzes, fetchNextRecentQuizzes, quizHeaders, fetchQuizById, submitAnswers, submitRating, queryQuizzesBySubject }
 }
 
 export default useFirebaseFirestore

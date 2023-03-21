@@ -1,9 +1,10 @@
 .Question {
+    background-color: black;
     color: var(--aqua-palette-9);
     border: 1px solid white;
-    margin-bottom: 30px;
     max-width: 600px;
-    min-height: 40vh;
+    width: 100%;
+    height: 100%;
     padding: 30px;
     font-size: 130%;
     word-break:keep-all;
@@ -15,7 +16,7 @@
 .Question > h1 {
     color: var(--jazz-palette-1);
     font-family: var(--main-font4);
-    font-size: 35px;
+    font-size: 40px;
     margin-bottom: 10px;
 }
 .Question label {

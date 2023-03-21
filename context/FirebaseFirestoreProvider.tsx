@@ -1,9 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import useFirebaseAppContext from "../hooks/useFirebaseAppContext"
-import { getFirestore, Firestore, setDoc } from "firebase/firestore"
 import useFirebaseUserContext from "../hooks/useFirebaseUserContext"
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
-import { doc, getDoc, Timestamp, onSnapshot } from 'firebase/firestore'
+import { getFirestore, Firestore, setDoc, doc, getDoc, Timestamp, onSnapshot } from "firebase/firestore"
 import { UserType } from "./FirebaseUserProvider"
 
 type DBType = Firestore | null
@@ -83,19 +81,16 @@ const FirebaseFirestoreProvider = ({children}: any) => {
             createUser(user)
             .then(() => listenToUser())
             .catch((err: any) => console.log("an error occured calling create user: ", user))
-            console.log("Listening to new user...")
         }
         else {
             setDbUser(null)
             unsubscribeFromUser()
-            console.log("Unsubscribed from previous user...")
         }
     }, [user])
 
     // called once on app mount and on auth changes
     // possible write
     const createUser = async (user: UserType) => {
-        console.log("creating user...")
         if(!db) console.log("no database")
         if(!user) console.log("no user")
         if(db && user){
@@ -122,7 +117,7 @@ const FirebaseFirestoreProvider = ({children}: any) => {
             else console.log("User already exists: ", docSnap.data())
         }
     }
-    
+
     return (
         <FirebaseFirestoreContext.Provider value={val}>
             { children }

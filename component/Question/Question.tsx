@@ -3,7 +3,7 @@ import { Field, ErrorMessage, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useFirebaseFirestore from '../../hooks/useFirebaseFirestore'
 import { useEffect, useState } from 'react'
-import { off } from 'process'
+import { motion } from 'framer-motion'
 
 const Short = (props: any) => {
     const { idx, lock } = props
@@ -53,8 +53,10 @@ const Question = (props: any) => {
     const { idx, children } = props
   
     return (
-        <div className={styles.Question} key={idx}>
-
+        <motion.div 
+            className={styles.Question} 
+            key={idx}
+        >
             <h1>{question}</h1>
             <p>Answer: 👇</p>
             <div className={styles.FieldContainer}>
@@ -63,7 +65,7 @@ const Question = (props: any) => {
                 { children }
             </div>
 
-        </div>
+        </motion.div>
     )
 }
 

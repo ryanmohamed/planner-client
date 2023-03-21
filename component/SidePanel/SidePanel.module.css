@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: var(--side-panel-width) !important;
     background-color: rgb(0, 0, 0);
 

@@ -5,8 +5,8 @@
     justify-items: center;
     align-self: center;
 
-    background-color: var(--jazz-palette-6);
-    border: 4px solid var(--jazz-palette-7);
+    background-color: none;
+    border: 4px solid var(--blue-palette-10);
     border-radius: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -98,7 +98,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100vw;
+    width: 100%;
     height: 100vw;
     background-color: rgb(255, 0, 0);
     transform-origin: 0 0;

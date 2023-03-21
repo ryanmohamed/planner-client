@@ -13,6 +13,12 @@ import Login from '../../component/Login/Login'
 import { motion, MotionConfig, AnimatePresence } from 'framer-motion'
 import DashboardPanel from '../../component/Home/DashboardPanel/DashboardPanel'
 
+import item from '../../public/pngs/3d.png'
+import arrow from '../../public/svgs/pppointed.svg'
+import Link from 'next/link'
+
+import { useMediaQuery} from 'react-responsive'
+
 const marqueeVariants = {
   animate: {
     x: [200, -800],
@@ -33,6 +39,7 @@ export default function Home() {
   const { app } = useFirebaseAppContext() 
   const { db } = useFirebaseFirestoreContext()
   const [ toggle, setToggle ] = useState(false)
+  const isMobile = useMediaQuery({ query: '(max-width: 800px)' })
 
 
   return (
@@ -45,21 +52,27 @@ export default function Home() {
       </Head>
 
       <header className="landing">
-        <h1>Welcome to your newest proctor.</h1>
-        <blockquote>
-          <motion.div 
-            variants={marqueeVariants} 
-            animate="animate"         
-          >
-            <p><span>Take quizzes or create your own.</span> <span>Attach files, images and customize.</span> <span>Post and join the community.</span></p>
-          </motion.div>
-        </blockquote>
+        <div className='action'>
+          <h1>Welcome to your newest proctor.</h1>
+          <p><span>Take quizzes or create your own.</span> <span>Attach files, images and customize.</span> <span>Post and join the community.</span></p>
+        </div>
+        <div className='interact'>
+          <Image src={item} alt="hero" />
+          { !user && <Link href="#mid">Sign up or log in</Link> }
+          <Link href="/dashboard">Check out your dashboard</Link>
+        </div>
+        <motion.div animate={{ rotate: [10, 5, 10], z: 100 }} transition={{ repeatType: 'loop', repeat: Infinity, repeatDelay: 2 }} id="postit">
+          <span>Thanks for visiting!</span>
+        </motion.div>
       </header>
 
-      <motion.div layout className="mid">
+      <motion.div layout className="mid" id="mid">
 
-        <DashboardPanel />
 
+        <p>
+          <span>Start testing your knowledge! </span>
+          { !isMobile && <Image src={arrow} alt="arrow"/> }
+        </p>
         <MotionConfig transition={{ duration: 5 }}>
         { user === null && <section>
           <AnimatePresence mode='wait'>

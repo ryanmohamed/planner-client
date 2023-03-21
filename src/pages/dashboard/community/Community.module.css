@@ -1,9 +1,9 @@
 .Community {
-    background-color: var(--jazz-palette-7);
-    background-image: url('/svgs/waves6.svg');
+    background-color: var(--main-txt);
+    /* background-image: url('/svgs/waves6.svg');
     background-position: top 650px right 0px;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     padding-bottom: 10vh;
 }
 .Community > header {
@@ -29,7 +29,7 @@
     position: relative;
 }
 .Community > header > img {
-    width: 100vw;
+    width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -51,8 +51,8 @@
     color: var(--aqua-palette-9);
     text-shadow: 0px 2px 30px var(--jazz-palette-5);
 }
-.Community > header > input {
-    box-shadow: 0 2px 40px var(--jazz-palette-5);
+.Community > header > form > input {
+    box-shadow: 0 2px 50px #f7f7f742;
     font-family: var(--alternate-font);
     color: var(--main-txt);
     padding: 20px;
@@ -66,17 +66,17 @@
     transition: 200ms;
     cursor: pointer;
 }
-.Community > header > input:focus,
-.Community > header > input:active,
-.Community > header > input:focus-within,
-.Community > header > input:-webkit-autofill:focus,
-.Community > header > input:hover {
+.Community > header > form > input:focus,
+.Community > header > form > input:active,
+.Community > header > form > input:focus-within,
+.Community > header > form > input:-webkit-autofill:focus,
+.Community > header > form > input:hover {
     outline: none;
     border: none;
-    box-shadow: 0 2px 30px var(--jazz-palette-5);   
+    box-shadow: 0 2px 70px #f7f7f742; 
 }
-.Community > header > input:hover {
-    box-shadow: 0 2px 50px var(--jazz-palette-5);
+.Community > header > form > input:hover {
+    box-shadow: 0 2px 70px #f7f7f742;
     scale: 1.1;
 }
 
@@ -161,6 +161,7 @@
     height: 50px;
     border: none;
     background-color: var(--main-txt);
+    border: 2px solid var(--blue-palette-9);
     color: var(--jazz-palette-1);
     font-family: var(--main-font4);
     font-size: 20px;

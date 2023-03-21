@@ -5,11 +5,11 @@ import ignoreCircularReferences from '../../lib/ignoreCircularReferences'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
-export default function QuizLink ({header}: any) {
+export default function QuizLink ({header, idx}: any) {
     return (
-        <AnimatePresence>
+        
             <motion.div 
-                key={JSON.stringify(header.id, ignoreCircularReferences())}
+                key={header.id}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{opacity: 0, scale: 0 }}
@@ -41,6 +41,5 @@ export default function QuizLink ({header}: any) {
             </div>
 
             </motion.div>
-        </AnimatePresence>
     )
 }

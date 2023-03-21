@@ -1,46 +1,54 @@
 .QuizPage {
     min-height: calc(100vh - var(--navheight) - var(--side-panel-width));
     background-color: var(--main-txt);
-    padding: 50px;
     display: flex;
     flex-direction: column;
+    padding-bottom: 100px;
+}
+.QuizPage > header {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 50px 0;
 }
 
-.QuizPage > * {
+.QuizPage > header > * {
     font-family: var(--main-font4);
     color: var(--aqua-palette-9);
 }
-.QuizPage > h1 {
+.QuizPage h1 {
     font-family: var(--display-font);
     font-size: 70px;
 }
-.QuizPage > h3 {
+.QuizPage h3 {
     font-family: var(--display-font);
     font-size: 30px;
+    margin-bottom: 10px;
 }
-.QuizPage > h6, .QuizPage > h6 > span {
+.QuizPage h6, .QuizPage h6 > span {
     font-size: 18px;
 }
-.QuizPage > h6 > span {
+.QuizPage h6 > span {
     margin: 10px;
     color: var(--jazz-palette-1);
     font-family: var(--main-font);
     font-size: 18px;
 }
 
-.QuizPage > h3 {
+.QuizPage img {
+    border-radius: 50%;
     margin-bottom: 30px;
 }
 
-.QuizPage > .Completed {
+.QuizPage .Completed {
     font-size: 25px;
     font-family: var(--alternate-font);
     margin: 50px 0;
     align-self: flex-end;
 }
 
-.QuizPage > .Start {
+.QuizPage .Start {
     margin-top: 40px;
+    margin-right: 50px;
     align-self: flex-end;
     max-width: 300px;
     width: 50%;
@@ -61,21 +69,21 @@
 
 /* medium */
 @media screen and (max-width: 800px) {
-    .QuizPage > .Start {
+    .QuizPage > header > .Start {
         font-size: 22px;
     }
 }
 
 /* small */
 @media screen and (max-width: 500px) {
-    .QuizPage > .Start {
+    .QuizPage > header > .Start {
         font-size: 18px;
     }
 }
 
 /* tiny */
 @media screen and (max-width: 300px) {
-    .QuizPage > .Start {
+    .QuizPage > header > .Start {
         font-size: 15px;
     }
 }

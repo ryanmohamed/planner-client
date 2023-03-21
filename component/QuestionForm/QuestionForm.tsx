@@ -32,11 +32,11 @@ export default function QuestionForm () {
                 }] 
             }}
             validationSchema={ Yup.object().shape({
-                title: Yup.string().required('Title required.'),
-                subject: Yup.string().required('Subject required.'),
+                title: Yup.string().max(30, "30 character limit").required('Title required.'),
+                subject: Yup.string().max(30, "30 character limit").required('Subject required.'),
                 questions: Yup.array().of(
                     Yup.object().shape({
-                        question: Yup.string().required('Question required.'),
+                        question: Yup.string().max(256, "256 character limit").required('Question required.'),
                         type: Yup.string().notOneOf(['none', null, undefined, ''], "You must select a type.").required("A type is required."),
                         choices: Yup.object({
                             a: Yup.string(),
@@ -47,14 +47,14 @@ export default function QuestionForm () {
                         .when("type", {
                             is: "mc",
                             then: (schema) => Yup.object({
-                                a: Yup.string().required("Choice required."),
-                                b: Yup.string().required("Choice required."),
-                                c: Yup.string().required("Choice required."),
-                                d: Yup.string().required("Choice required.")
+                                a: Yup.string().max(256, "256 character limit").required("Choice required."),
+                                b: Yup.string().max(256, "256 character limit").required("Choice required."),
+                                c: Yup.string().max(256, "256 character limit").required("Choice required."),
+                                d: Yup.string().max(256, "256 character limit").required("Choice required.")
                             }),
                             otherwise: (schema) => schema
                         }),
-                        answer: Yup.string().notOneOf(['none', '', null, undefined], "Answer required.").required("Answer required"),
+                        answer: Yup.string().max(256, "256 character limit").notOneOf(['none', '', null, undefined], "Answer required.").required("Answer required"),
                         confirmed: Yup.boolean().optional(),
                     })
                 ).min(1, "Must have atleast one question.")
