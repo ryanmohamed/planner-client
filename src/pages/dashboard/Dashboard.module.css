@@ -1,12 +1,13 @@
 .Dashboard {
-
+    background-color: var(--aqua-palette-4);
 }
 .Dashboard > div {
     min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 50px max(10vw, 50px);
+    padding: calc(50px + var(--navheight)) max(10vw, 50px);
+    color: white;
 }
 .Dashboard > div > p {
     

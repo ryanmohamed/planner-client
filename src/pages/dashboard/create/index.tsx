@@ -16,7 +16,7 @@ const Create = () => {
     return (<main className={styles.Dashboard}>
         <div>
             <h1 className="heading">Create a quiz.</h1>
-            <p className="subheading">Or modify one you've already made</p>
+            <p className="subheading">Or modify one you&apos;ve already made</p>
         </div>
         <motion.section className={styles.Create} layout>
             <blockquote>

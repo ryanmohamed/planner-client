@@ -9,8 +9,6 @@ import useFirebaseFirestoreContext from "./useFirebaseFirestoreContext"
 
 // fire store
 import { where, query, addDoc, collection, doc, orderBy, Timestamp, limit, updateDoc, getDocs, startAfter, getDoc, increment, runTransaction } from "firebase/firestore"
-import { DocumentData, DocumentSnapshot } from "@google-cloud/firestore"
-
 // CRUD operations
 const useFirebaseFirestore = () => {
     const { app } = useFirebaseAppContext()

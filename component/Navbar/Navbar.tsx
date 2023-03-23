@@ -54,7 +54,7 @@ export default function Navbar ({children} : any) {
 
     return (
         <nav className={styles.Navbar}>   
-            <Link href="/"><p className={styles.Title}>Quizcraft</p></Link>
+            <Link href="/"><p className={styles.Title}>Quiz-itiv</p></Link>
             { user && <div>
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>
                 <Image src={photoURL} alt={"profile image"} height={30} width={30} onClick={() => setToggle(!toggle)}/>

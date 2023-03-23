@@ -57,7 +57,7 @@ const QuizPage = () => {
             }
             fetch()
         }
-    }, [db, user, dbUser, hasMounted])
+    }, [db, user, dbUser, hasMounted, fetchQuizById])
 
     const hasRated = () => {
         return dbUser.scores.some((score: any) => score.id === router.query.quiz_id && score.rating !== 0) 
@@ -80,7 +80,7 @@ const QuizPage = () => {
                 dbUser.scores.some((score: any) => score.id === router.query.quiz_id) && <>
                     
                     <Modal>
-                        <h6>You've taken this quiz before! </h6>
+                        <h6>You&apos;ve taken this quiz before! </h6>
                         <h6 id="history">You scored: {dbUser.scores.find((score: any) => score.id === router.query.quiz_id)?.score}</h6>
                     </Modal>
 

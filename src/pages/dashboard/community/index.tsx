@@ -14,6 +14,9 @@ import { motion, AnimatePresence, useScroll } from "framer-motion"
 import QuizLink from "../../../../component/QuizLink/QuizLink"
 import { Formik, Form, Field } from "formik"
 
+import Image from 'next/image'
+import waves from '../../../../public/svgs/waves4.svg'
+
 // import useMeasure from "react-use-measure"
 // import ignoreCircularReferences from "../../../../lib/ignoreCircularReferences"
 
@@ -37,7 +40,7 @@ const Community = () => {
             }
             fetch()
         }
-    }, [db, user, dbUser, hasMounted])
+    }, [db, user, dbUser, hasMounted, fetchRecentQuizzes])
 
     return (<main className={styles.Community}>
         <header>
@@ -59,7 +62,7 @@ const Community = () => {
                 <Field type="text" name="subject" placeholder="Search for a subject"/>
             </Form>
             </Formik>
-            <img src="/svgs/waves4.svg" />
+            <Image src={waves} alt={"Wave background"} />
         </header>
 
         <AnimatePresence mode="popLayout">
