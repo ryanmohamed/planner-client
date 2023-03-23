@@ -1,0 +1,15 @@
+.Dashboard {
+    background-color: var(--aqua-palette-4);
+}
+.Dashboard > div {
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(50px + var(--navheight)) max(10vw, 50px);
+    color: white;
+}
+.Dashboard > div > p {
+    
+}
+

@@ -1,9 +1,9 @@
 import { createContext, FC, useEffect, useState } from "react"
 import useFirebaseAppContext from "../hooks/useFirebaseAppContext"
-import { User, getAuth, onAuthStateChanged } from "firebase/auth"
+import { User, getAuth, onAuthStateChanged, onIdTokenChanged } from "firebase/auth"
 import { useRouter } from 'next/router'
 
-type UserType = User | null
+export type UserType = User | null
 type ContextState = { 
     user: User 
 }

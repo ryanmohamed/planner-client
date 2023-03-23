@@ -1,0 +1,6 @@
+.DashboardLayout {
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    min-height: calc(100vh - var(--navheight));
+    padding-bottom: var(--side-panel-width);
+}

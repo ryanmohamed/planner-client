@@ -1,0 +1,196 @@
+.Dashboard {
+
+}
+.Dashboard > div {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px max(10vw, 50px);
+    background-image: url("/svgs/waves.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100% bottom;
+}
+/* AFTER FORM BREAK */
+.Dashboard > blockquote {
+    min-height: 45vh;
+    background-image: url("/svgs/waves2.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100% top;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 5vw 50px;
+}
+.Dashboard > blockquote > h1 {
+    text-align: right;
+    font-family: var(--alternate-font2);
+    font-size: 45px;
+    color: var(--create-main-bg);
+}
+
+
+
+.Create {
+    background-color: var(--create-main-bg);
+    /* background-color: red; */
+    padding: 13vh 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CREATE INSTRUCTIONS */
+.Create > blockquote {
+    color: white;
+    font-family: var(--main-font3);
+    font-size: 30px;
+    align-self: center;
+    margin: 50px;
+    /* margin: 0 50px 50px; */
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 40%;
+    text-align: center;
+}
+.Create > blockquote > h1 {
+    text-shadow: 0 2px 60px var(--aqua-palette-5);
+    color: var(--aqua-palette-7);
+    font-family: var(--main-font3);
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+.Create > blockquote > p {
+    color: white;
+    font-family: var(--main-font3);
+    font-size: 80px;
+}
+
+
+.Create > form {
+    border: 2px solid var(--blue-palette-10);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 100px var(--blue-palette-9);
+    background-color: var(--navy-blue5);
+    width: 80%;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    padding: 70px 50px 0;
+}
+.Create > form > h2 {
+    border-radius: 0.25rem;
+    width: fit-content;
+    align-self: flex-end;
+    color: var(--palette3);
+    font-family: var(--main-font2);
+    font-weight: 100;
+    text-align: right;
+    margin-bottom: 7vw;
+}
+
+.Create input {
+    background-color: var(--main-bg2) !important;
+    width: 100%;
+    padding: 15px;
+    height: 40px;
+    font-size: 18px;
+    font-family: var(--alternate-font);
+    color: var(--main-txt);
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+.Create input:focus,
+.Create input:hover,
+.Create input:-webkit-autofill:focus,
+.Create input:-webkit-autofill:active,
+.Create input:-webkit-autofill:hover
+{
+    cursor: pointer;
+    color: black;
+    background-color: var(--main-bg2) !important;
+    border-color: #0044ff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(134, 254, 192 / 25%);
+}
+.Create input:-webkit-autofill,
+.Create input:-webkit-autofill:focus,
+.Create input:-webkit-autofill:active,
+.Create input:-webkit-autofill:hover {
+    transition: background-color 50000s ease-in-out 0s;
+}
+
+/* courtesy of stephanie eckles https://moderncss.dev/custom-select-styles-with-pure-css/ */
+.Create select {
+    appearance: none;
+    border: none;
+    outline: none;
+
+    height: 100%;
+    min-width: 140px;
+    max-width: 200px;
+    border: 1px solid var(--select-border);
+    border-radius: 0.2rem;
+    padding: 0.5em 0.5em;
+    font-size: 15px;
+    font-family: 15px;
+    cursor: pointer;
+    line-height: 1.1;
+
+    color: var(--select-color);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.294);
+    background-color: var(--select-bg);
+    background-image: url('/svgs/caret-down.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 95% center;
+    transition: 200ms;
+}
+.Create select::-ms-expand { /* emoval of the arrow for lower IE versions */
+    display: none;
+}
+.Create select:hover{
+    scale: 1.03;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.366);
+}
+
+
+
+/* is small */
+@media screen and (max-width: 1000px) {
+    .Create {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 13vh 50px;
+    }
+    .Create > blockquote {
+        align-self: center;
+        width: 100%;
+    }
+    .Create > form {
+        width: 100%;
+        padding: 50px 30px 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .Create {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 13vh 30px;
+    }
+    .Create > form {
+        width: 100%;
+        padding: 50px 20px 0;
+    }
+}

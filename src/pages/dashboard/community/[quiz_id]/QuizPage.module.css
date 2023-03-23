@@ -1,0 +1,89 @@
+.QuizPage {
+    min-height: calc(100vh - var(--navheight) - var(--side-panel-width));
+    background-color: var(--main-txt);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+.QuizPage > header {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 50px 0;
+}
+
+.QuizPage > header > * {
+    font-family: var(--main-font4);
+    color: var(--aqua-palette-9);
+}
+.QuizPage h1 {
+    font-family: var(--display-font);
+    font-size: 70px;
+}
+.QuizPage h3 {
+    font-family: var(--display-font);
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+.QuizPage h6, .QuizPage h6 > span {
+    font-size: 18px;
+}
+.QuizPage h6 > span {
+    margin: 10px;
+    color: var(--jazz-palette-1);
+    font-family: var(--main-font);
+    font-size: 18px;
+}
+
+.QuizPage img {
+    border-radius: 50%;
+    margin-bottom: 30px;
+}
+
+.QuizPage .Completed {
+    font-size: 25px;
+    font-family: var(--alternate-font);
+    margin: 50px 0;
+    align-self: flex-end;
+}
+
+.QuizPage .Start {
+    margin-top: 40px;
+    margin-right: 50px;
+    align-self: flex-end;
+    max-width: 300px;
+    width: 50%;
+    height: 50px;
+    background: none;
+    border: 1px solid var(--aqua-palette-9);
+    border-radius: 0.75rem;
+    color: var(--jazz-palette-1);
+    font-family: var(--display-font);
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 50px var(--jazz-palette-1);
+}
+
+/* medium */
+@media screen and (max-width: 800px) {
+    .QuizPage > header > .Start {
+        font-size: 22px;
+    }
+}
+
+/* small */
+@media screen and (max-width: 500px) {
+    .QuizPage > header > .Start {
+        font-size: 18px;
+    }
+}
+
+/* tiny */
+@media screen and (max-width: 300px) {
+    .QuizPage > header > .Start {
+        font-size: 15px;
+    }
+}

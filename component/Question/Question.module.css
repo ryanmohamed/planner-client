@@ -1,0 +1,98 @@
+.Question {
+    background-color: black;
+    color: var(--aqua-palette-9);
+    border: 1px solid white;
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    font-size: 130%;
+    word-break:keep-all;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Question > h1 {
+    color: var(--jazz-palette-1);
+    font-family: var(--main-font4);
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.Question label {
+    font-family: var(--main-font);
+}
+
+.Question > .FieldContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: var(--aqua-palette-9);
+}
+
+.Question > .FieldContainer > p {
+    border-bottom: 1px solid var(--jazz-palette-1);
+    align-self: flex-end;
+    font-family: var(--alternate-font);
+    font-size: 30px;
+    color: var(--aqua-palette-9);
+    margin-bottom: 20px;
+}
+
+.Question > .FieldContainer > label {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.Question > .FieldContainer > label > input {
+    margin-right: 10px;
+    font-size: 20px;
+}
+.Question textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 75px;
+    max-height: 200px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 0.25rem;
+    background-color: black;
+    color: var(--aqua-palette-9);
+    font-size: 20px;
+    font-family: var(--main-font4);
+    margin-bottom: 10px;
+}
+.Question > .FieldContainer > span {
+    font-size: 18px;
+    color: red;
+    align-self: flex-end;
+}
+
+.Question > .FieldContainer > button {
+    margin: 40px 0 0;
+    height: 30px;
+    width: 100%;
+    align-self: center;
+    max-width: 300px;
+    width: 50%;
+    height: 50px;
+    background: none;
+    border: 1px solid var(--aqua-palette-9);
+    border-radius: 0.75rem;
+    color: var(--jazz-palette-1);
+    font-family: var(--display-font);
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Question > .Correct {
+    font-size: 18px;
+    color: var(--jazz-palette-8);
+    align-self: flex-end;
+}

@@ -2,6 +2,8 @@ import { FirebaseApp, initializeApp } from "firebase/app"
 import { createContext, useEffect, useState } from "react"
 import { appConfig } from "../lib/firebase"
 
+import {  } from 'firebase/firestore'
+
 type App = FirebaseApp | null
 const firebaseApp: App = initializeApp(appConfig)
 const FirebaseAppContext = createContext(undefined)

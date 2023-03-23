@@ -1,0 +1,30 @@
+.SidePanel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--side-panel-width) !important;
+    background-color: rgb(0, 0, 0);
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    z-index: 50 !important;
+}
+
+.SidePanel > * {
+    background-color: rgb(0, 0, 0);
+    /* box-shadow: -2px -2px 100px inset rgba(255, 255, 255, 0.225); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 200ms;
+    user-select: none;
+}
+.SidePanel > a {
+    font-size: 20px;
+    text-decoration: none;
+    text-shadow: 0 2px 70px rgb(255, 255, 255);
+}
+.SidePanel > a:hover {
+    font-size: 30px;
+}
