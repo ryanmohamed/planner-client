@@ -8,6 +8,8 @@ import useMeasure from 'react-use-measure'
 import ignoreCircularReferences from '../../lib/ignoreCircularReferences'
 import Link from 'next/link'
 
+import { useRouter } from 'next/router'
+
 const d = 0.25
 
 function ResizeablePanel({ children }: any){
@@ -44,6 +46,7 @@ export default function Navbar ({children} : any) {
     const [ photoURL, setPhotoURL ] = useState<any>(undefined)
     const [ toggle, setToggle ] = useState(false)
     const { SignOut } = useFirebaseAuth()
+    const router = useRouter()
 
     useEffect(() => {
         if ( user?.photoURL === null ) 
@@ -52,8 +55,9 @@ export default function Navbar ({children} : any) {
             setPhotoURL(user?.photoURL)
     }, [user])
 
+    console.log(router.pathname)
     return (
-        <nav className={styles.Navbar}>   
+        <nav className={styles.Navbar} style={{ color: router.pathname === '/dashboard/create' ? 'black' : 'var(--main-bg2)' }}>   
             <Link href="/"><p className={styles.Title}>Quiz-itiv</p></Link>
             { user && <div>
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>

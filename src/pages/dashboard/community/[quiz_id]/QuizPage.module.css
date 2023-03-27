@@ -3,7 +3,8 @@
     background-color: var(--main-txt);
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
+
+    padding: var(--navheight) 0 100px;
 }
 .QuizPage > header {
     display: flex;

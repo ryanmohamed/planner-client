@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 50px max(10vw, 50px);
+    padding: calc(50px + var(--navheight)) max(10vw, 50px) 50px;
     background-image: url("/svgs/waves.svg");
     background-repeat: no-repeat;
     background-size: cover;
