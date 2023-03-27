@@ -10,13 +10,13 @@
     position: absolute;
     top: 0;
     left: 0;
-}
 
-.Navbar > * {
     color: var(--main-bg2);
 }
 
+
 .Navbar > a {
+    color: inherit;
     text-decoration: none;
 }
 .Navbar > a > .Title {

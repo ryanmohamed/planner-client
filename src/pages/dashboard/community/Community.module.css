@@ -28,17 +28,20 @@
 
     position: relative;
 }
+
+.Community > header > * {
+    z-index: 10;
+}
 .Community > header > img {
-    width: 100%;
+    max-width: 100%;
+    height: auto;
+    scale: 2;
     position: absolute;
     bottom: 0;
     left: 0;
     z-index: 5;
     user-select: none;
     pointer-events: none;
-}
-.Community > header > * {
-    z-index: 10;
 }
 .Community > header > h1 {
     font-family: var(--alternate-font2);
@@ -132,6 +135,8 @@
     margin: 10px; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    position: relative;
+    z-index: 10;
 }
 .QuizContainer {
     margin: 70px 50px 0;
