@@ -148,7 +148,7 @@ body {
   align-items: center;
   color: var(--main-txt);
 
-  background-color: var(--jazz-palette-10);
+  background-color: var(--jazz-palette-2);
   background-image: url('/svgs/ffflux.svg');
   background-repeat: no-repeat;
   background-size: cover;
