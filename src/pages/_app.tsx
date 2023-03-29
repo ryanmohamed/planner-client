@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import './globals.css'
 import Navbar from '../../component/Navbar/Navbar'
 import { FirebaseAppProvider } from '../../context/FirebaseAppProvider'
 import { FirebaseUserProvider } from '../../context/FirebaseUserProvider'
