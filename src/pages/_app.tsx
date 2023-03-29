@@ -23,8 +23,8 @@ const App = ({Component, pageProps}: AppPropsWithLayout) => {
   return <>
     <FirebaseAppProvider>
       <FirebaseUserProvider>
-        <Navbar />
         <FirebaseFirestoreProvider>
+        <Navbar />
         { Component.getLayout ? getLayout(<Component {...pageProps} />) : <Component {...pageProps} /> }
         </FirebaseFirestoreProvider>
       </FirebaseUserProvider>
