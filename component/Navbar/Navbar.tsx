@@ -9,6 +9,7 @@ import ignoreCircularReferences from '../../lib/ignoreCircularReferences'
 import Link from 'next/link'
 
 import { useRouter } from 'next/router'
+import useGetLevel from '../../hooks/useGetLevel'
 
 const d = 0.25
 
@@ -47,6 +48,7 @@ export default function Navbar ({children} : any) {
     const [ toggle, setToggle ] = useState(false)
     const { SignOut } = useFirebaseAuth()
     const router = useRouter()
+    const { level } = useGetLevel()
 
     useEffect(() => {
         if ( user?.photoURL === null ) 
@@ -59,6 +61,7 @@ export default function Navbar ({children} : any) {
     return (
         <nav className={styles.Navbar} style={{ color: router.pathname === '/dashboard/create' ? 'black' : 'var(--main-bg2)' }}>   
             <Link href="/"><p className={styles.Title}>Quiz-itiv</p></Link>
+           {level &&  <p>Level: {level}</p>}
             { user && <div>
                 <p className={styles.Name}>{ user.isAnonymous ? "Anonymous" : user.displayName == null ? user.email : user.displayName }</p>
                 <Image src={photoURL} alt={"profile image"} height={30} width={30} onClick={() => setToggle(!toggle)}/>
