@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300&family=Poppins:wght@300;400&Lobster&family=Golos+Text&family=Kanit:wght@300&family=Manrope:wght@200;300&family=Raleway:wght@20&family=Righteous&family=Rubik&display=swap');
 
-:root {
+:root
+{
   --navheight: 60px;
   --main-bg: #f9f9fa;
   --main-bg2: #f7f9ff;
-  --main-txt:  #080f0f;
-  --main-txt2:  #3a4042;
+  --main-txt: #080f0f;
+  --main-txt2: #3a4042;
   --alternate-font: 'Kanit', sans-serif;
   --alternate-font2: 'Rubik', sans-serif;
   --alternate-font3: 'Josefin Sans', sans-serif;
@@ -18,39 +19,32 @@
   --large-font-sz: 60px;
   --medium-font-sz: 30px;
   --small-font-sz: 18px;
-
   --side-panel-width: 80px;
   --side-panel-font-sz: 30px;
-
   --select-color: #e5e5fc;
   --select-bg: #201e23;
   --select-border: #01200ca9;
-
   --navy-blue1: #000073;
   --navy-blue2: #000066;
   --navy-blue3: #00005a;
   --navy-blue4: #00004d;
   --navy-blue5: #000040;
-
   --green-blue1: #12b8cc;
   --green-blue2: #10a2b4;
   --green-blue3: #10a2b4;
   --green-blue4: #0c7683;
   --green-blue5: #09606a;
-
   --dn-blue1: #000229;
   --dn-blue2: #000225;
   --dn-blue3: #000120;
   --dn-blue4: #00011c;
   --dn-blue5: #000117;
-
   --palette1: #2b2764;
   --palette2: #494a99;
   --palette3: #9092bc;
   --palette4: #dedce2;
   --palette5: #ffffff;
   --palette6: #08080c;
-
   --aqua-palette-1: #03045e;
   --aqua-palette-2: #023e8a;
   --aqua-palette-3: #0077b6;
@@ -60,7 +54,6 @@
   --aqua-palette-7: #90e0ef;
   --aqua-palette-8: #ade8f4;
   --aqua-palette-9: #caf0f8;
-
   --jazz-palette-1: #f72585;
   --jazz-palette-2: #b5179e;
   --jazz-palette-3: #7209b7;
@@ -71,7 +64,6 @@
   --jazz-palette-8: #4361ee;
   --jazz-palette-9: #4895ef;
   --jazz-palette-10: #4cc9f0;
-
   --blue-palette-1: #e3f2fd;
   --blue-palette-2: #bbdefb;
   --blue-palette-3: #90caf9;
@@ -82,15 +74,13 @@
   --blue-palette-8: #1976d2;
   --blue-palette-9: #1565c0;
   --blue-palette-10: #0d47a1;
-
-
   --create-main-bg: #03045e;
   --create-secondary-bg: #00b4d8;
   --create-fg: #caf0f8;
-
 }
 
-* {
+*
+{
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -98,48 +88,56 @@
 
 *,
 *::before,
-*::after {
+*::after
+{
   box-sizing: border-box;
 }
 
-html, body {
+html, body
+{
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-color: var(--main-txt);
 }
 
-body {
+body
+{
   background-color: var(--main-txt);
   min-height: calc(100vh - var(--navheight));
-  
 }
 
-
-*::-webkit-scrollbar {
+*::-webkit-scrollbar
+{
   width: 5px;
   background-color: rgb(0, 0, 0);
 }
- 
-*::-webkit-scrollbar-track {
+
+*::-webkit-scrollbar-track
+{
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
-*::-webkit-scrollbar-thumb {
+
+*::-webkit-scrollbar-thumb
+{
   background-color: var(--blue-palette-9);
   outline: none;
 }
 
-.heading {
+.heading
+{
   font-family: var(--main-font);
   font-size: var(--large-font-sz);
   margin-bottom: 10px;
 }
-.subheading {
+
+.subheading
+{
   font-family: var(--alternate-font);
   font-size: 22px;
 }
 
-.landing {
+.landing
+{
   min-height: 70vh;
   padding: calc(50px + var(--navheight)) 50px 50px;
   display: flex;
@@ -147,7 +145,6 @@ body {
   justify-content: center;
   align-items: center;
   color: var(--main-txt);
-
   background-color: var(--jazz-palette-2);
   background-image: url('/svgs/ffflux.svg');
   background-repeat: no-repeat;
@@ -156,13 +153,19 @@ body {
   box-shadow: 0 -2px 10px inset rgb(0, 0, 0, 0.2);
   position: relative;
 }
-.landing * {
+
+.landing *
+{
   z-index: 100 !important;
 }
-.landing > div{
+
+.landing > div
+{
   margin: 30px;
 }
-.landing > .interact {
+
+.landing > .interact
+{
   max-width: 400px;
   width: 50%;
   height: 31vh;
@@ -175,7 +178,9 @@ body {
   margin-bottom: 100px;
   transition: 200ms;
 }
-.landing > .interact > img {
+
+.landing > .interact > img
+{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -185,7 +190,9 @@ body {
   height: auto;
   filter: saturate(1.2) drop-shadow(0 2px 50px #21212198);
 }
-.landing > .interact > a {
+
+.landing > .interact > a
+{
   z-index: 10;
   height: 60px;
   background: linear-gradient(33deg, var(--jazz-palette-2), var(--jazz-palette-1));
@@ -204,11 +211,14 @@ body {
   margin: 5px;
   transition: 200ms;
 }
-.landing > .interact > a:hover {
+
+.landing > .interact > a:hover
+{
   scale: 1.1;
 }
 
-.landing .action {
+.landing .action
+{
   max-width: 35%;
   color: var(--main-bg2);
   font-size: 20px;
@@ -217,16 +227,20 @@ body {
   z-index: 100;
 }
 
-.landing .action > h1 {
+.landing .action > h1
+{
   margin-bottom: 20px;
 }
-.landing .action > p {
+
+.landing .action > p
+{
   font-size: 18px;
   font-family: var(--alternate-font);
   margin: 0 15%;
 }
 
-.landing > #postit {
+.landing > #postit
+{
   position: absolute;
   bottom: -120px;
   right: 25px;
@@ -237,23 +251,18 @@ body {
   font-size: 35px;
   text-align: center;
   padding: 30px;
-
   height: 150px;
   min-width: 200px;
   width: 30%;
-
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100 !important;
-
   box-shadow: 0 2px 20px var(--main-txt);
 }
 
-
-
-
-.mid {
+.mid
+{
   display: flex;
   flex-direction: row-reverse;
   background-color: var(--dn-blue4);
@@ -262,7 +271,9 @@ body {
   background-size: cover;
   padding: 50px;
 }
-.mid > p {
+
+.mid > p
+{
   /* background-color: red; */
   min-height: 30vh;
   color: white;
@@ -276,11 +287,15 @@ body {
   position: relative;
   z-index: 10;
 }
-.mid > p > span {
+
+.mid > p > span
+{
   z-index: 10;
   margin-bottom: 100px;
 }
-.mid > p > span > img {
+
+.mid > p > span > img
+{
   position: absolute;
   bottom: 0;
   left: -25%;
@@ -289,26 +304,30 @@ body {
   z-index: 1;
 }
 
-.mid > section {
+.mid > section
+{
   width: 100%;
   min-height: 60vh;
   display: flex;
 }
-.mid > section:nth-child(2) {
+
+.mid > section:nth-child(2)
+{
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
 }
 
-
-.background {
+.background
+{
   height: fit-content;
   padding: 50vh 100px;
   position: relative;
 }
 
-.background > #arrowdown {
+.background > #arrowdown
+{
   z-index: 1 !important;
   pointer-events: none;
   position: absolute;
@@ -318,14 +337,15 @@ body {
   width: 60vh;
   height: 60vh;
 }
-#arrowdown > img {
+
+#arrowdown > img
+{
   scale: 1.4;
   opacity: 0.7;
 }
 
-
-
-.background > blockquote {
+.background > blockquote
+{
   z-index: 500 !important;
   border-radius: 1rem;
   padding: 25px;
@@ -338,68 +358,96 @@ body {
   overflow-x: hidden;
   text-align: center;
 }
-.background > blockquote:not(:last-child){
+
+.background > blockquote:not(:last-child)
+{
   margin-bottom: 50vh;
 }
-.background > blockquote:nth-child(odd) {
+
+.background > blockquote:nth-child(odd)
+{
   flex-direction: row;
 }
 
-
-.background > blockquote > div {
+.background > blockquote > div
+{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: fit-content;
 }
-.background > blockquote > div > img {
+
+.background > blockquote > div > img
+{
   max-width: 500px;
   height: auto;
 }
-.background > blockquote > div > span {
+
+.background > blockquote > div > span
+{
   font-size: 0.6em;
   text-align: center;
   color: rgb(230, 221, 221);
 }
-.background > blockquote > div > #source {
+
+.background > blockquote > div > #source
+{
   font-size: 0.75em;
   color: white;
   margin-top: 10px;
 }
 
-
-.background > blockquote a {
+.background > blockquote a
+{
   color: inherit;
   text-decoration: none;
   transition: 200ms;
   animation: pulse 1s infinite ease-in-out;
 }
-@keyframes pulse {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(2); }
-  100% { filter: brightness(1); }
+
+@keyframes pulse
+{
+  0%
+  {
+    filter: brightness(1);
+  }
+
+  50%
+  {
+    filter: brightness(2);
+  }
+
+  100%
+  {
+    filter: brightness(1);
+  }
 }
-.background > blockquote > p {
+
+.background > blockquote > p
+{
   margin: 50px;
   line-height: 50px;
 }
-.background > blockquote > p > em {
+
+.background > blockquote > p > em
+{
   font-family: var(--display-font);
   font-size: 35px;
   margin: 0 5px 0 0;
   font-style: normal;
 }
-.background > blockquote > p > b {
+
+.background > blockquote > p > b
+{
   color: var(--jazz-palette-2);
   font-family: var(--display-font);
   font-size: 32px;
   margin: 0 2px;
 }
 
-
-
-footer {
+footer
+{
   min-height: 30vh;
   background: #000000;
   border-top: 3px solid var(--main-txt2);
@@ -411,73 +459,102 @@ footer {
   align-items: flex-start;
   padding: 50px 100px;
 }
-footer > h1 {
+
+footer > h1
+{
   font-family: var(--display-font);
   align-self: center;
   margin-bottom: 100px;
 }
-footer > div {
+
+footer > div
+{
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
-footer > div > ul {
+
+footer > div > ul
+{
   list-style-type: none;
   font-size: 18px;
   margin-right: 10%;
 }
-footer > div >  ul > h2 {
+
+footer > div >  ul > h2
+{
   margin-bottom: 25px;
   padding-top: 10px;
   border-top: 1px solid var(--main-txt2);
 }
-footer >  div > ul > li {
+
+footer >  div > ul > li
+{
   margin: 10px 0;
   width: fit-content;
 }
 
-
-
-@media screen and (max-width: 800px) {
-  .landing {
+@media screen and (max-width: 800px)
+{
+  .landing
+  {
     flex-direction: column;
     padding: calc(50px + var(--navheight)) 25px 25px;
   }
-  .landing > .action {
+
+  .landing > .action
+  {
     max-width: 100%;
   }
-  .mid { 
+
+  .mid
+  {
     flex-direction: column;
   }
-  .landing > #postit {
+
+  .landing > #postit
+  {
     height: 100px;
     font-size: 20px;
     bottom: -100px;
   }
-  .mid > p > span {
+
+  .mid > p > span
+  {
     margin-bottom: 25px;
   }
-  .mid > p > span > img {
+
+  .mid > p > span > img
+  {
     visibility: hidden;
   }
-  .background {
+
+  .background
+  {
     padding: 30vh 25px;
   }
-  .background > blockquote, .background > blockquote:nth-child(odd) {
+
+  .background > blockquote, .background > blockquote:nth-child(odd)
+  {
     flex-direction: column;
     align-items: center;
   }
-  .background > blockquote > p {
+
+  .background > blockquote > p
+  {
     margin: 25px;
   }
-  .background > blockquote > div {
+
+  .background > blockquote > div
+  {
     margin-bottom: 50px;
   }
-  #arrowdown > img {
+
+  #arrowdown > img
+  {
     scale: 1.2;
   }
-  
 }
 
 
